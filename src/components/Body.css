@@ -1,0 +1,5 @@
+.container-body {
+    min-height: calc(100vh - 102px);
+    background-color: #fcfcfc;
+    display: flex;
+}

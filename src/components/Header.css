@@ -1,0 +1,58 @@
+.container-header {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #FAFFFD;
+    position: static;
+    /* border-radius: 0 0 8px 8px; */
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 8px;
+    /* border-bottom: solid 1px rgb(0, 0, 0); */
+}
+
+.container-logo-nome {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 12px;
+    gap: 4px;
+}
+
+.style-img {
+    height: 45px;
+    width: 45px;
+}
+
+.nome-projeto {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 30px;
+    color: rgb(79, 78, 78);
+}
+
+.container-btns-header {
+    display: flex;
+    gap: 8px;
+}
+
+.style-btns {
+    height: 40px;
+    width: auto;
+    padding: 8px 14px 8px 14px;
+    cursor: pointer;
+    font-size: 17px;
+    border: solid 2px #FAFFFD;
+}
+
+.btn-login-style {
+    background-color: #FAFFFD;
+}
+
+.btn-login-style:hover {
+    background-color: #1D3557;
+    color: #FAFFFD;
+}
+
+.btn-new-user-style {
+    background-color: #FAFFFD;
+}
