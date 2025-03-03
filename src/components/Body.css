@@ -1,5 +1,42 @@
+h2 {
+    font-family: Arial, sans-serif;
+    font-size: 36px;
+    color: #0077b6;
+}
+
+p {
+    font-family: Arial, sans-serif;
+    font-size: 21px;
+}
+
+span {
+    color: #0077b6;
+}
+
 .container-body {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 48px;
     min-height: calc(100vh - 102px);
     background-color: #fcfcfc;
+}
+
+.img-style {
+    height: 300px;
+    width: 370px;
+    border-radius: 8px;
+}
+
+.titulo-texto-imagem {
     display: flex;
+    flex-direction: row;
+    width: 900px;
+}
+
+.container-texto-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

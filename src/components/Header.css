@@ -2,20 +2,18 @@
     height: 90px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: #FAFFFD;
     position: static;
-    /* border-radius: 0 0 8px 8px; */
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
     margin-bottom: 8px;
-    /* border-bottom: solid 1px rgb(0, 0, 0); */
+    padding: 18px;
 }
 
 .container-logo-nome {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 12px;
     gap: 4px;
 }
 
@@ -37,15 +35,15 @@
 
 .style-btns {
     height: 40px;
-    width: auto;
-    padding: 8px 14px 8px 14px;
+    /* width: auto; */
     cursor: pointer;
     font-size: 17px;
-    border: solid 2px #FAFFFD;
 }
 
 .btn-login-style {
+    padding: 8px 14px 8px 14px;
     background-color: #FAFFFD;
+    border: solid 2px #1D3557;
 }
 
 .btn-login-style:hover {
@@ -55,4 +53,25 @@
 
 .btn-new-user-style {
     background-color: #FAFFFD;
+    width: 190px;
+    border: none;
+    background-color: #3a86ff;
+    color: #FAFFFD;
+}
+
+.btn-new-user-style:hover {
+    
+}
+
+.btn-new-user-style:hover {
+    border: solid 3px #0077b6;
+}
+
+.container-texto-sobre {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: large;
+    width: 70%;
 }
