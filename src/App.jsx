@@ -1,13 +1,11 @@
 import './App.css'
-import Body from './components/Body'
-import Header from './components/Header'
+import Home from './telas/Home'
 
 function App() {
 
   return (
     <>
-    <Header />
-    <Body />
+      <Home />
     </>
   )
 }
