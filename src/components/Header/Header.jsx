@@ -1,7 +1,11 @@
+import BtnCadastro from '../BtnCadastro/BtnCadastro'
+import BtnLogin from '../BtnLogin/BtnLogin'
 import './Header.css'
 
 
 function Header() {
+
+
     return (
         <div className='container-header'>
             <div className='container-logo-nome'>
@@ -9,8 +13,8 @@ function Header() {
                 <h1 className='nome-projeto'>Estoque+</h1>
             </div>
             <div className='container-btns-header'>
-                <button className='btn-login-style style-btns'>Acessar</button>
-                <button className='btn-new-user-style style-btns'>Criar Conta</button>
+                <BtnLogin />
+                <BtnCadastro />
             </div>
         </div>
     )

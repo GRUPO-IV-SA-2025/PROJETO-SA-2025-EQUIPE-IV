@@ -1,0 +1,15 @@
+.btn-new-user-style {
+    background-color: #FAFFFD;
+    width: 190px;
+    border: none;
+    background-color: #3a86ff;
+    color: #FAFFFD;
+    height: 40px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btn-new-user-style:hover {
+    border: solid 3px #0077b6;
+}
+
