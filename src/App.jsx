@@ -1,12 +1,11 @@
 import './App.css'
-import Home from './telas/Home'
+import Home from './telas/Home/Home'
+
 
 function App() {
 
   return (
-    <>
-      <Home />
-    </>
+    <Home />
   )
 }
 

@@ -1,0 +1,13 @@
+.btn-login-style {
+    padding: 8px 14px 8px 14px;
+    background-color: #FAFFFD;
+    border: solid 2px #1D3557;
+    height: 40px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btn-login-style:hover {
+    background-color: #1D3557;
+    color: #FAFFFD;
+}

@@ -33,40 +33,6 @@
     gap: 8px;
 }
 
-.style-btns {
-    height: 40px;
-    /* width: auto; */
-    cursor: pointer;
-    font-size: 17px;
-}
-
-.btn-login-style {
-    padding: 8px 14px 8px 14px;
-    background-color: #FAFFFD;
-    border: solid 2px #1D3557;
-}
-
-.btn-login-style:hover {
-    background-color: #1D3557;
-    color: #FAFFFD;
-}
-
-.btn-new-user-style {
-    background-color: #FAFFFD;
-    width: 190px;
-    border: none;
-    background-color: #3a86ff;
-    color: #FAFFFD;
-}
-
-.btn-new-user-style:hover {
-    
-}
-
-.btn-new-user-style:hover {
-    border: solid 3px #0077b6;
-}
-
 .container-texto-sobre {
     padding: 16px;
     display: flex;
