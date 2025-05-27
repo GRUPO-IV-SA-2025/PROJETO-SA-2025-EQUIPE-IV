@@ -1,7 +1,7 @@
 import { Component } from "react"
 import App from "../App";
-import TelaLogin from "../telas/Login";
-import TelaCadastro from "../telas/Cadastro";
+import TelaLogin from "../telas/Login/Login";
+import TelaCadastro from "../telas/Cadastro/Cadastro";
 
 const rotas = [
     {

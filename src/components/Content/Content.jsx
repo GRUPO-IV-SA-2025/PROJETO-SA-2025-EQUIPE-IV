@@ -1,4 +1,5 @@
-import './Body.css'
+import BtnCadastro from '../BtnCadastro/BtnCadastro';
+import './Content.css'
 import img from '/images/warehouse-worker.avif';
 
 function Body() {
@@ -10,7 +11,7 @@ function Body() {
                     <p>
                         Com o sistema de gerenciamento e controle de estoque <span>Estoque+</span>, você organiza e movimenta com eficiência o estoque de sua empresa. Simplifique sua gestão agora!
                     </p>
-                    <button className='btn-new-user-style style-btns'>Criar Conta</button>
+                    <BtnCadastro />
                 </div>
                 <img className='img-style' src={img} alt="" />
             </div>
