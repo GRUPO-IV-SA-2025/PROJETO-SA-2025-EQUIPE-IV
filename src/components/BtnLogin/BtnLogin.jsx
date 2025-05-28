@@ -1,13 +1,18 @@
 import './BtnLoginStyle.css'
-import { Link } from 'react-router'
+import { useNavigate } from 'react-router';
 
 const BtnLogin = () => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('../telas/Login/Login');
+    };
 
     return (
-        <button className='btn-login-style'>
-            <Link to="/telas/Login/Login">Acessar</Link>
+        <button className='btn-login-style' onClick={handleClick}>
+            Entrar
         </button>
-    )
-}
+    );
+};
 
 export default BtnLogin;
