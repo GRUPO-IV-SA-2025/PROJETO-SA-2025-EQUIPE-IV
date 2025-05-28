@@ -1,11 +1,17 @@
 import './BtnCadastroStyle.css';
-import { Link } from 'react-router'
+import { useNavigate } from 'react-router'
 
 const BtnCadastro = () => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("../telas/Cadastro/Cadastro")
+    }
+
     return (
         <>
-            <button className='btn-new-user-style'>
-                <Link to="telas/Cadastro/Cadastro">Criar Conta</Link>
+            <button onClick={handleClick} className='btn-new-user-style'>
+                Criar Conta
             </button>
         </>
     )

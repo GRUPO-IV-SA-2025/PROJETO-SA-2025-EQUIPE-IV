@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import rotas from './rotas/rotas-modo-declarativo.jsx';
 
 // const router = createBrowserRouter(rotas);
-
+ 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter basename='estoque-plus'>
