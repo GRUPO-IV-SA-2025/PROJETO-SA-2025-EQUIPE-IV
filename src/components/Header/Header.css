@@ -10,24 +10,6 @@
     padding: 18px;
 }
 
-.container-logo-nome {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 4px;
-}
-
-.style-img {
-    height: 45px;
-    width: 45px;
-}
-
-.nome-projeto {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 30px;
-    color: rgb(79, 78, 78);
-}
-
 .container-btns-header {
     display: flex;
     gap: 8px;

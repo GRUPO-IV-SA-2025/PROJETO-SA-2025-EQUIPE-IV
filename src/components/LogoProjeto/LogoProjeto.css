@@ -1,0 +1,17 @@
+.container-logo-nome {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.style-img {
+    height: 55px;
+    width: 55px;
+}
+
+.nome-projeto {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 45px;
+    color: rgb(79, 78, 78);
+}

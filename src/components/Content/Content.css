@@ -6,7 +6,7 @@ h2 {
 
 p {
     font-family: Arial, sans-serif;
-    font-size: 21px;
+    font-size: 30px;
 }
 
 span {
@@ -21,6 +21,7 @@ span {
     padding-top: 48px;
     min-height: calc(100vh - 102px);
     background-color: #fcfcfc;
+    gap: 48px;
 }
 
 .img-style {
@@ -32,7 +33,7 @@ span {
 .titulo-texto-imagem {
     display: flex;
     flex-direction: row;
-    width: 900px;
+    width: 70%;
 }
 
 .container-texto-btn {

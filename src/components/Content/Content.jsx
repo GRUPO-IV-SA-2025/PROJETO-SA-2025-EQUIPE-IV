@@ -1,3 +1,4 @@
+import { Box, Card, CardContent } from '@mui/material';
 import BtnCadastro from '../BtnCadastro/BtnCadastro';
 import './Content.css'
 import img from '/images/warehouse-worker.avif';
@@ -15,6 +16,26 @@ function Body() {
                 </div>
                 <img className='img-style' src={img} alt="" />
             </div>
+            <Box sx={{width: '70%', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '40px', gap: '24px'}}>
+                <p>Serviços que nosso software oferece:</p>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '48px' }}>
+                    <Card sx={{ height: '280px', width: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <CardContent>
+                            Item 1
+                        </CardContent>
+                    </Card>
+                    <Card sx={{ height: '280px', width: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <CardContent>
+                            Item 2
+                        </CardContent>
+                    </Card>
+                    <Card sx={{ height: '280px', width: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <CardContent>
+                            Item 3
+                        </CardContent>
+                    </Card>
+                </Box>
+            </Box>
         </div >
     )
 }
