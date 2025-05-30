@@ -1,7 +1,21 @@
 import './Login.css';
 import iconBox from '/images/icon-caixa.svg';
+import { useNavigate } from 'react-router';
 
 function TelaLogin() {
+    const navigate = useNavigate();
+
+    const handleCadastroClick = (e) => {
+        e.preventDefault();
+        navigate('../telas/Cadastro/Cadastro');
+    };
+
+    const handleEntrarClick = (e) => {
+        e.preventDefault();
+        setUsuarioLogado(true);
+        navigate('/')
+    }
+
     return (
         <div className="login-container">
             
@@ -29,10 +43,13 @@ function TelaLogin() {
 
                 <a className="login-link">Esqueceu sua senha?</a>
 
-                <button className="login-button">Entrar</button>
+                <button className="login-button" onClick={handleEntrarClick}>Entrar</button>
 
                 <p className="signup-text">
-                    Não possui conta ainda? <a href="#" className="signup-link">Cadastre-se</a>
+                    Não possui conta ainda?{' '}
+                    <a className="signup-link" onClick={handleCadastroClick}>
+                        Cadastre-se
+                    </a>
                 </p>
             </div>
         </div>
