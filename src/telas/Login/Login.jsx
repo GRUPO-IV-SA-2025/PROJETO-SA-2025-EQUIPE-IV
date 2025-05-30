@@ -1,6 +1,8 @@
 import './Login.css';
 import iconBox from '/images/icon-caixa.svg';
 import { useNavigate } from 'react-router';
+import LogoProjeto from '../../components/LogoProjeto/LogoProjeto'
+
 
 function TelaLogin() {
     const navigate = useNavigate();
@@ -18,10 +20,8 @@ function TelaLogin() {
 
     return (
         <div className="login-container">
-            
-            <img src={iconBox} className='style-img' alt='Icon' />
-            <h1 className='nome-projeto'>Estoque+</h1>
 
+            <LogoProjeto />
             <div className="login-box">
                 <h2 className="login-title">Acessar sua conta</h2>
 
