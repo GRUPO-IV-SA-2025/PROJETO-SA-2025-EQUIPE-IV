@@ -1,6 +1,7 @@
 import App from "../App";
 import TelaLogin from "../telas/Login/Login";
 import TelaCadastro from "../telas/Cadastro/Cadastro";
+import PaginaInicial from "../telas/PaginaInicial/PaginaInicial";
 
 const rotas = [
     {
@@ -14,6 +15,10 @@ const rotas = [
     {
         path: '/telas/Cadastro/Cadastro',
         element: <TelaCadastro /> 
+    },
+    {
+        path: '/telas/Home/Home',
+        element: <PaginaInicial />
     }
 ]
 

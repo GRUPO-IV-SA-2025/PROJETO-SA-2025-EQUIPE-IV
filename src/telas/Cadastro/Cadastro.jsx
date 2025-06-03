@@ -3,9 +3,17 @@ import './Cadastro.css';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto';
 import imgWorker from '/images/Checking boxes-amico.svg';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
+
 
 function TelaCadastro() {
 
+    const navigate = useNavigate();
+
+    const handleHomeClick = (e) => {
+        e.preventDefault();
+        navigate('/telas/PaginaInicial/PaginaInicial')
+    }
 
     const [formData, setFormData] = useState({
         empresa: '',
@@ -89,7 +97,7 @@ function TelaCadastro() {
                         error={errors.email} helperText={errors.empresa ? 'Campo obrigatório' : ''} />
                         <TextField name='senha' value={formData.senha} onChange={handleChange} fullWidth label="Crie uma senha forte" variant="outlined" 
                         error={errors.senha} helperText={errors.empresa ? 'Campo obrigatório' : ''} />
-                        <Button variant='contained' size='large' onClick={handleSubmit}>Cadastrar</Button>
+                        <Button variant='contained' size='large' onClick={{handleSubmit, handleHomeClick}}>Cadastrar</Button>
                     </Stack>
                 </Stack>
             </Box>
