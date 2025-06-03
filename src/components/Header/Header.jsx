@@ -2,8 +2,6 @@ import BtnCadastro from '../BtnCadastro/BtnCadastro'
 import BtnLogin from '../BtnLogin/BtnLogin'
 import LogoProjeto from '../LogoProjeto/LogoProjeto';
 import './Header.css'
-import iconBox from '/images/icon-caixa.svg';
-
 
 function Header() {
     return (

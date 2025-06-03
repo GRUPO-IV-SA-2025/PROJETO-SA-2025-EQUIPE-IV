@@ -18,7 +18,7 @@ span {
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-top: 48px;
+    padding-top: 150px;
     min-height: calc(100vh - 102px);
     background-color: #fcfcfc;
     gap: 48px;

@@ -1,4 +1,4 @@
-import './App.css'
+
 import Home from './telas/Home/Home'
 
 
