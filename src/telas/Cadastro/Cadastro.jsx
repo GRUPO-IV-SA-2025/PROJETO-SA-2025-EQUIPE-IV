@@ -5,7 +5,6 @@ import imgWorker from '/images/Checking boxes-amico.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-
 function TelaCadastro() {
 
     const navigate = useNavigate();
@@ -48,13 +47,7 @@ function TelaCadastro() {
 
     // verifica se os campos estao preenchidos
     const handleSubmit = () => {
-        // const camposVazios = Object.entries(formData).filter(([chave, valor]) => valor.trim() === '');
-
-        // if (camposVazios.length > 0) {
-        //     alert(`Preencha todos os campos. Campos faltando: ${camposVazios.map(([chave]) => chave).join(', ')}`);
-        //     return;
-        // }
-
+        
         const novosErros = {};
         let hasError = false;
 
@@ -77,6 +70,12 @@ function TelaCadastro() {
         // Aqui pode chamar uma função para enviar os dados para o backend
     };
 
+        // Função intermediária que chama ambas as funções
+        const handleButtonClick = (e) => {
+            handleSubmit(e);  // Chama a função de submit
+            // handleHomeClick(e);  // Chama a função de navegação
+        };
+
     return (
         <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
             <Box sx={{ width: '50%', backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -97,7 +96,7 @@ function TelaCadastro() {
                         error={errors.email} helperText={errors.empresa ? 'Campo obrigatório' : ''} />
                         <TextField name='senha' value={formData.senha} onChange={handleChange} fullWidth label="Crie uma senha forte" variant="outlined" 
                         error={errors.senha} helperText={errors.empresa ? 'Campo obrigatório' : ''} />
-                        <Button variant='contained' size='large' onClick={{handleSubmit, handleHomeClick}}>Cadastrar</Button>
+                        <Button variant='contained' size='large' onClick={handleButtonClick}>Cadastrar</Button>
                     </Stack>
                 </Stack>
             </Box>

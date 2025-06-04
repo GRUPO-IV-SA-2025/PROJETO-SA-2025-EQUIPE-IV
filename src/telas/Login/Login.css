@@ -107,6 +107,21 @@ body {
   text-decoration: underline;
 }
 
+.show-password-btn {
+  position: absolute;
+  top: 40%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #007BFF;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.show-password-btn:hover {
+  color: #0056b3;
+}
 
 .input-error {
   border: 1px solid red;
