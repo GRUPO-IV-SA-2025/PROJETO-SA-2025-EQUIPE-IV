@@ -31,7 +31,7 @@ function Body() {
             
             <Box sx={{ width: '70%', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '40px', gap: '24px' }}>
                 <p>Serviços que nosso software oferece:</p>
-                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '48px' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '48px', padding: '18px' }}>
                     <Card sx={cardSharedStyles}>
                         <CardContent>
                             Controle do estoque

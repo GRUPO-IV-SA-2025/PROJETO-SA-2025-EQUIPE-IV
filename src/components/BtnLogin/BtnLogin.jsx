@@ -5,11 +5,12 @@ const BtnLogin = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("../telas/Login/Login")
+        // console.log('Button clicked'); 
+        navigate("/telas/Login/Login")
     }
 
     return (
-        <button onClick={handleClick} className='btn-login-style'>
+        <button onClick={handleClick} className='btn-login-style' type='button'>
             Acessar
         </button>
     );

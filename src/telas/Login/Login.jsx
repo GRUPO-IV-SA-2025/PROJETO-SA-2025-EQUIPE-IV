@@ -1,6 +1,6 @@
 import './Login.css';
 import iconBox from '/images/icon-caixa.svg';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto'
 import { useState } from 'react';
 
@@ -19,8 +19,9 @@ function TelaLogin() {
     });
 
     const handleCadastroClick = (e) => {
-        e.preventDefault();
-        navigate('../telas/Cadastro/Cadastro');
+        // e.preventDefault();
+        console.log('Button clicked');
+        navigate('/telas/Cadastro/Cadastro');
     };
 
     const handleEntrarClick = (e) => {
@@ -28,7 +29,7 @@ function TelaLogin() {
         // setUsuarioLogado(true);
         // navigate('/')
 
-         // Validação simples dos campos
+        // Validação simples dos campos
         const novosErros = {
             usuarioEmail: formData.usuarioEmail.trim() === '',
             senha: formData.senha.trim() === ''
@@ -37,7 +38,7 @@ function TelaLogin() {
         setErrors(novosErros);
 
         // Se tiver erro, não continua
-        if(novosErros.usuarioEmail || novosErros.senha){
+        if (novosErros.usuarioEmail || novosErros.senha) {
             return;
         }
 
@@ -67,7 +68,7 @@ function TelaLogin() {
                 <input
                     type="text"
                     name='usuarioEmail'
-                    className={`login-input ${errors.usuarioEmail ? 'input-error': ''}`}
+                    className={`login-input ${errors.usuarioEmail ? 'input-error' : ''}`}
                     placeholder="Insira o nome do seu usuário ou E-mail"
                     value={formData.usuarioEmail}
                     onChange={handleChange}
@@ -93,9 +94,11 @@ function TelaLogin() {
 
                 <p className="signup-text">
                     Não possui conta ainda?{' '}
-                    <a className="signup-link" onClick={handleCadastroClick}>
+                    <Link
+                        to="/telas/Cadastro/Cadastro"
+                        className="signup-link" >
                         Cadastre-se
-                    </a>
+                    </Link>
                 </p>
             </div>
         </div>

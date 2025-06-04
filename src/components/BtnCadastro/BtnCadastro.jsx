@@ -5,12 +5,14 @@ const BtnCadastro = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("../telas/Cadastro/Cadastro")
+        // console.log('Button clicked'); 
+        
+        navigate("/telas/Cadastro/Cadastro")
     }
 
     return (
         <>
-            <button onClick={handleClick} className='btn-new-user-style'>
+            <button onClick={handleClick} className='btn-new-user-style' type='button'>
                 Criar Conta
             </button>
         </>
