@@ -18,6 +18,12 @@ function TelaLogin() {
         senha: false
     });
 
+    const [mostrarSenha, setMostrarSenha] = useState(false);
+
+    const alteraVisibilidadeSenha = () => {
+        setMostrarSenha(!mostrarSenha); //alterna entre visivel e oculto
+    }
+
     const handleCadastroClick = (e) => {
         // e.preventDefault();
         console.log('Button clicked');
@@ -78,13 +84,17 @@ function TelaLogin() {
                 <label className="login-label">Senha</label>
                 <div className="password-wrapper">
                     <input
-                        type="password"
+                        // type="password"
+                        type={mostrarSenha ? "text" : "password"}  // Altera o tipo entre "text" e "password"
                         name='senha'
                         className={`login-input ${errors.senha ? 'input-error' : ''}`}
                         placeholder="Insira sua senha"
                         value={formData.senha}
                         onChange={handleChange}
                     />
+                    <button type='button' onClick={alteraVisibilidadeSenha} className='show-password-btn'>
+                        {mostrarSenha ? 'Ocultar' : 'Mostrar'}
+                    </button>
                 </div>
                 {errors.senha && <span className='error-text'>Campo obrigatório</span>}
 

@@ -17,7 +17,7 @@ const rotas = [
         element: <TelaCadastro /> 
     },
     {
-        path: '/telas/Home/Home',
+        path: '/telas/PaginaInicial/PaginaInicial',
         element: <PaginaInicial />
     }
 ]
