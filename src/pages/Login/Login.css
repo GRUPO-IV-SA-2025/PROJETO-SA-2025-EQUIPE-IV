@@ -1,56 +1,56 @@
-/* Login.css */
+/* Login.css
 body {
   background-color: #f6f6f6;
   font-family: Arial, sans-serif;
-}
+} */
 
-.login-container {
+/* .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   flex-direction: column;
-}
+} */
 
-.login-box {
-  background-color: white;
-  padding: 3rem; /* aumentou */
-  border-radius: 10px;
-  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
-  width: 450px; /* aumentou */
-  text-align: center;
-}
+/* .login-box {
+  background-color: white; */
+/* padding: 3rem; aumentou */
+/* border-radius: 10px; */
+/* box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2); */
+/* width: 450px; aumentou */
+/* text-align: center; */
+/* } */
 
-.login-logo {
+/* .login-logo {
   width: 70px;
   margin-bottom: 1.5rem;
-}
+} */
 
-.login-title {
-  font-size: 2rem; /* aumentou */
+/* .login-title {
+  font-size: 2rem; /* aumentou 
   font-weight: bold;
   margin-bottom: 2rem;
-}
+} */
 
-.login-label {
+/* .login-label {
   display: block;
   text-align: left;
   font-weight: bold;
   margin: 0.75rem 0 0.25rem;
-  font-size: 1rem; /* aumentou */
-}
+  font-size: 1rem; /* aumentou 
+} */
 
-.login-input {
+/* .login-input {
   width: 100%;
-  padding: 0.8rem; /* aumentou */
-  font-size: 1rem; /* aumentou */
+  padding: 0.8rem; /* aumentou 
+  font-size: 1rem; /* aumentou 
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 1rem;
   box-sizing: border-box;
-}
+} */
 
-.password-wrapper {
+/* .password-wrapper {
   position: relative;
 }
 
@@ -65,21 +65,21 @@ body {
 
 .login-link {
   display: block;
-  text-align: left;
-  font-size: 0.95rem; /* aumentou */
+  text-align: left; */
+/* font-size: 0.95rem; /* aumentou 
   color: #007bff;
   margin-bottom: 1.25rem;
   text-decoration: none;
-}
+} */
 
-.login-link:hover {
+/* .login-link:hover {
   text-decoration: underline;
-}
+} */
 
-.login-button {
+/* .login-button {
   width: 100%;
-  padding: 1rem; /* aumentou */
-  font-size: 1rem; /* aumentou */
+  padding: 1rem; /* aumentou 
+  font-size: 1rem; /* aumentou 
   background-color: #0062e3;
   color: white;
   border: none;
@@ -91,11 +91,11 @@ body {
 
 .login-button:hover {
   background-color: #004bbd;
-}
+} */
 
-.signup-text {
-  font-size: 1rem; /* aumentou */
-}
+/* .signup-text {
+  font-size: 1rem; /* aumentou 
+} */
 
 .signup-link {
   color: #0062e3;
@@ -103,11 +103,11 @@ body {
   font-weight: bold;
 }
 
-.signup-link:hover {
+/* .signup-link:hover {
   text-decoration: underline;
-}
+} */
 
-.show-password-btn {
+/* .show-password-btn {
   position: absolute;
   top: 40%;
   right: 10px;
@@ -130,7 +130,7 @@ body {
 
 .error-text {
   color: red;
-  font-size: 0.8rem;
-  /* margin-top: 1px; */
+  font-size: 0.8rem; */
+/* margin-top: 1px; 
   display: block;
-}
+} */

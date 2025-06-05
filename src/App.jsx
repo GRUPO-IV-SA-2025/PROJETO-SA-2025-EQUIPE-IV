@@ -1,5 +1,5 @@
 
-import Home from './telas/Home/Home'
+import Home from './pages/Home/Home'
 
 
 function App() {

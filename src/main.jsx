@@ -8,7 +8,7 @@ import rotas from './rotas/rotas-modo-declarativo.jsx';
  
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter basename='estoque-plus'>
+    <BrowserRouter basename='/pages/Home'>
       <Routes>
         {rotas.map(rota => (
           <Route key={rota.path} path={rota.path} element={rota.element} />

@@ -6,8 +6,7 @@ const BtnCadastro = () => {
 
     const handleClick = () => {
         // console.log('Button clicked'); 
-        
-        navigate("/telas/Cadastro/Cadastro")
+        navigate("/pages/Cadastro")
     }
 
     return (

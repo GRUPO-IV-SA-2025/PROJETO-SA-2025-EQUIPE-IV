@@ -10,15 +10,15 @@ const rotas = [
         Component: <App />
     },
     {
-        path: '/telas/Login',
+        path: '/pages/Login',
         Component: <TelaLogin />
     },
     {
-        path: '/telas/Cadastro',
+        path: '/pages/Cadastro',
         Component: <TelaCadastro />
     },
     {
-        path: '/telas/Home',
+        path: '/pages/Home',
         Component: <PaginaInicial />
     }
 ]

@@ -6,7 +6,7 @@ const BtnLogin = () => {
 
     const handleClick = () => {
         // console.log('Button clicked'); 
-        navigate("/telas/Login/Login")
+        navigate("/pages/Login")
     }
 
     return (

@@ -19,7 +19,7 @@ function PaginaInicial() {
                 <Box sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center', }}>
                         
                     <Grid container spacing={4} mb={5} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                        <Grid item xs={12} md={6}>
+                        <Grid>
                             <Paper elevation={4} sx={{ p: 2 }}>
                                 <Typography variant="subtitle1" fontWeight="bold" color="white" bgcolor="#004468" p={1} borderRadius="8px 8px 8px 8px">
                                     Fluxo de Caixa
