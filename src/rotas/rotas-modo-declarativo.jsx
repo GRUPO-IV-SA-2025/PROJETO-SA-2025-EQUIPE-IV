@@ -2,6 +2,7 @@ import App from "../App";
 import TelaLogin from "../telas/Login/Login";
 import TelaCadastro from "../telas/Cadastro/Cadastro";
 import PaginaInicial from "../telas/PaginaInicial/PaginaInicial";
+import Financeiro from "../telas/Financeiro/Financeiro"
 
 const rotas = [
     {
@@ -17,8 +18,12 @@ const rotas = [
         element: <TelaCadastro /> 
     },
     {
-        path: '/telas/PaginaInicial/PaginaInicial',
+        path: '/telas/PaginaInicial',
         element: <PaginaInicial />
+    },
+    {
+        path: '/telas/Financeiro',
+        element: <Financeiro />
     }
 ]
 
