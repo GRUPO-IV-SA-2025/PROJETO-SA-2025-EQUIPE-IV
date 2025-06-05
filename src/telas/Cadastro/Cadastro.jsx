@@ -6,13 +6,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 function TelaCadastro() {
-
     const navigate = useNavigate();
 
-    const handleHomeClick = (e) => {
-        e.preventDefault();
-        navigate('/telas/PaginaInicial/PaginaInicial')
-    }
+    // const handleHomeClick = (e) => {
+    //     e.preventDefault();
+    //     navigate('/telas/PaginaInicial/PaginaInicial')
+    // }
 
     const [formData, setFormData] = useState({
         empresa: '',
@@ -21,7 +20,8 @@ function TelaCadastro() {
         cnpj: '',
         contato: '',
         email: '',
-        senha: ''
+        senha: '',
+        confirmarSenha: ''
     });
 
     const [errors, setErrors] = useState({
@@ -31,12 +31,27 @@ function TelaCadastro() {
         cnpj: false,
         contato: false,
         email: false,
-        senha: false
+        senha: false,
+        confirmarSenha: false
     });
 
-    const handleChange = (e) => {
-        // setFormData({ ...formData, [e.target.name]: e.target.value });
+    const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
 
+    const toggleMostrarSenha = () => {
+        setMostrarSenha(!mostrarSenha);
+    };
+
+    const toggleMostrarConfirmarSenha = () => {
+        setMostrarConfirmarSenha(!mostrarConfirmarSenha);
+    };
+
+    const emailEhValido = (email) => {
+        const regex = /^[\w-.]+@[\w-]+\.[a-z]{2,}$/i;
+        return regex.test(email);
+    };
+
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
         if (value.trim() !== '') {
@@ -44,10 +59,7 @@ function TelaCadastro() {
         }
     };
 
-
-    // verifica se os campos estao preenchidos
     const handleSubmit = () => {
-        
         const novosErros = {};
         let hasError = false;
 
@@ -60,42 +72,81 @@ function TelaCadastro() {
             }
         }
 
-        setErrors(novosErros);
-
-        if (hasError) {
-            return;
+        if (formData.senha !== formData.confirmarSenha) {
+            novosErros.confirmarSenha = true;
+            hasError = true;
         }
 
+        if (!emailEhValido(formData.email)) {
+            novosErros.email = true;
+            hasError = true;
+        }
+
+        setErrors(novosErros);
+
+        if (hasError) return;
+
+        // Salvar os dados do usuário no localStorage
+        localStorage.setItem('usuarioCadastrado', JSON.stringify({
+          email: formData.email,
+          senha: formData.senha
+        }));
+        
         alert('Cadastro realizado com sucesso!');
-        // Aqui pode chamar uma função para enviar os dados para o backend
+        navigate('/login');
+        
     };
 
-        // Função intermediária que chama ambas as funções
-        const handleButtonClick = (e) => {
-            handleSubmit(e);  // Chama a função de submit
-            // handleHomeClick(e);  // Chama a função de navegação
-        };
+    const handleButtonClick = (e) => {
+        handleSubmit(e);
+    };
 
     return (
         <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
             <Box sx={{ width: '50%', backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <Stack spacing={3} sx={{ width: '50%', alignItems: 'center' }}>
+                <Stack spacing={2} sx={{ width: '50%', alignItems: 'center' }}>
                     <LogoProjeto />
-                    <Stack spacing={3} sx={{ width: '100%' }}>
+                    <Stack spacing={2} sx={{ width: '100%' }}>
                         <TextField name='empresa' value={formData.empresa} onChange={handleChange} fullWidth label="Nome da empresa" variant="outlined"
-                        error={errors.empresa} helperText={errors.empresa ? 'Campo obrigatório' : ''}  />
-                        <TextField name='nome' value={formData.nome} onChange={handleChange} fullWidth label="Nome" variant="outlined" 
-                        error={errors.nome} helperText={errors.empresa ? 'Campo obrigatório' : ''} /> 
-                        <TextField name='sobrenome' value={formData.sobrenome} onChange={handleChange} fullWidth label="Sobrenome" variant="outlined" 
-                        error={errors.sobrenome} helperText={errors.empresa ? 'Campo obrigatório' : ''} />
-                        <TextField name='cnpj' value={formData.cnpj} onChange={handleChange} fullWidth label="CNPJ" variant="outlined" 
-                        error={errors.cnpj} helperText={errors.empresa ? 'Campo obrigatório' : ''} />
-                        <TextField name='contato' value={formData.contato} onChange={handleChange} fullWidth label="Número de contato" variant="outlined" 
-                        error={errors.contato} helperText={errors.empresa ? 'Campo obrigatório' : ''} />
-                        <TextField name='email' value={formData.email} onChange={handleChange} fullWidth label="E-mail" variant="outlined" 
-                        error={errors.email} helperText={errors.empresa ? 'Campo obrigatório' : ''} />
-                        <TextField name='senha' value={formData.senha} onChange={handleChange} fullWidth label="Crie uma senha forte" variant="outlined" 
-                        error={errors.senha} helperText={errors.empresa ? 'Campo obrigatório' : ''} />
+                            error={errors.empresa} helperText={errors.empresa ? 'Campo obrigatório' : ''} sx={{ mb: 1 }} />
+
+                        <TextField name='nome' value={formData.nome} onChange={handleChange} fullWidth label="Nome" variant="outlined"
+                            error={errors.nome} helperText={errors.nome ? 'Campo obrigatório' : ''} sx={{ mb: 1 }} />
+
+                        <TextField name='sobrenome' value={formData.sobrenome} onChange={handleChange} fullWidth label="Sobrenome" variant="outlined"
+                            error={errors.sobrenome} helperText={errors.sobrenome ? 'Campo obrigatório' : ''} sx={{ mb: 1 }} />
+
+                        {/* <TextField name='cnpj' value={formData.cnpj} onChange={handleChange} fullWidth label="CNPJ" variant="outlined"
+                            error={errors.cnpj} helperText={errors.cnpj ? 'Campo obrigatório' : ''} sx={{ mb: 1 }} /> */}
+
+                        <TextField name='contato' value={formData.contato} onChange={handleChange} fullWidth label="Número de contato" variant="outlined"
+                            error={errors.contato} helperText={errors.contato ? 'Campo obrigatório' : ''} sx={{ mb: 1 }} />
+
+                        <TextField name='email' value={formData.email} onChange={handleChange} fullWidth label="E-mail" variant="outlined"
+                            error={errors.email} helperText={errors.email ? 'Informe um e-mail válido' : ''} sx={{ mb: 1 }} />
+
+                        <TextField name='senha' type={mostrarSenha ? 'text' : 'password'} value={formData.senha} onChange={handleChange} fullWidth label="Crie uma senha forte" variant="outlined"
+                            error={errors.senha} helperText={errors.senha ? 'Campo obrigatório' : ''} sx={{ mb: 1 }}
+                            InputProps={{
+                                endAdornment: (
+                                    <Button onClick={toggleMostrarSenha} sx={{ textTransform: 'none' }}>
+                                        {mostrarSenha ? 'Ocultar' : 'Mostrar'}
+                                    </Button>
+                                )
+                            }}
+                        />
+
+                        <TextField name='confirmarSenha' type={mostrarConfirmarSenha ? 'text' : 'password'} value={formData.confirmarSenha} onChange={handleChange} fullWidth label="Confirme sua senha" variant="outlined"
+                            error={errors.confirmarSenha} helperText={errors.confirmarSenha ? 'As senhas não coincidem ou campo vazio' : ''} sx={{ mb: 1 }}
+                            InputProps={{
+                                endAdornment: (
+                                    <Button onClick={toggleMostrarConfirmarSenha} sx={{ textTransform: 'none' }}>
+                                        {mostrarConfirmarSenha ? 'Ocultar' : 'Mostrar'}
+                                    </Button>
+                                )
+                            }}
+                        />
+
                         <Button variant='contained' size='large' onClick={handleButtonClick}>Cadastrar</Button>
                     </Stack>
                 </Stack>
@@ -107,7 +158,7 @@ function TelaCadastro() {
                 </Box>
             </Box>
         </Box>
-    )
+    );
 }
 
 export default TelaCadastro;

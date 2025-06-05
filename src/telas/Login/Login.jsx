@@ -1,5 +1,5 @@
 import './Login.css';
-import iconBox from '/images/icon-caixa.svg';
+// import iconBox from '/images/icon-caixa.svg';
 import { Link, useNavigate } from 'react-router';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto'
 import { useState } from 'react';
@@ -24,11 +24,11 @@ function TelaLogin() {
         setMostrarSenha(!mostrarSenha); //alterna entre visivel e oculto
     }
 
-    const handleCadastroClick = (e) => {
-        // e.preventDefault();
-        console.log('Button clicked');
-        navigate('/telas/Cadastro/Cadastro');
-    };
+    // const handleCadastroClick = (e) => {
+    //     // e.preventDefault();
+    //     console.log('Button clicked');
+    //     navigate('/telas/Cadastro/Cadastro');
+    // };
 
     const handleEntrarClick = (e) => {
         e.preventDefault();
@@ -85,7 +85,7 @@ function TelaLogin() {
                 <div className="password-wrapper">
                     <input
                         // type="password"
-                        type={mostrarSenha ? "text" : "password"}  // Altera o tipo entre "text" e "password"
+                        type={mostrarSenha ? "text" : "password"}
                         name='senha'
                         className={`login-input ${errors.senha ? 'input-error' : ''}`}
                         placeholder="Insira sua senha"
