@@ -1,10 +1,8 @@
 import './Login.css';
-import iconBox from '/images/icon-caixa.svg';
 import { Link, useNavigate } from 'react-router';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto'
 import { useState } from 'react';
 import { Box, Button, Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material';
-import imgWorker from '/images/Checking boxes-amico.svg';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
@@ -109,7 +107,7 @@ function TelaLogin() {
                         <p className="signup-text">
                             Não possui conta ainda?
                             <Link
-                                to="/telas/Cadastro"
+                                to="/pages/Cadastro"
                                 className="signup-link" >
                                 Cadastre-se
                             </Link>
