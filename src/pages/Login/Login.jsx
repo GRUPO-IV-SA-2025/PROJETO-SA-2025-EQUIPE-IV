@@ -2,8 +2,7 @@ import './Login.css';
 import { Link, useNavigate } from 'react-router';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto'
 import { useState } from 'react';
-import { Box, Button, Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material';
-import imgWorker from '/images/Checking boxes-amico.svg';
+import { Box, Button, Stack, TextField } from '@mui/material';
 import img from '/images/conceito-de-tecnologia-futurista.jpg';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -43,12 +42,11 @@ function TelaLogin() {
             return;
         }
 
-        // Verificação das credenciais (simplificada)
         const usuarioValido = formData.email === 'admin@estoque.com' &&
             formData.senha === 'admin123';
 
         if (usuarioValido) {
-            login({  // Chama a função do contexto
+            login({ 
                 nome: 'Administrador',
                 email: formData.email
             });
