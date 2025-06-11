@@ -3,8 +3,15 @@ import Header from '../../components/Header/Header';
 import './PaginaInicial.css';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { PieChart } from "@mui/x-charts";
+import { useNavigate } from "react-router";
 
 function PaginaInicial() {
+    const navigate = useNavigate();
+
+    const handleFinanceiroClick = (e) => {
+        e.preventDefault();
+        navigate('/telas/Financeiro/Financeiro')
+    }
 
     return (
         <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
@@ -13,7 +20,7 @@ function PaginaInicial() {
 
             <Box sx={{ width: '100%', backgroundColor: 'white', marginTop: "85px" }}>
                 <Box sx={{ marginTop: "35px", marginLeft: "35px" }}>
-                    <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold" }}>Home</Typography>
+                    <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>Home</Typography>
                 </Box>
 
                 <Box sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center', }}>
@@ -71,7 +78,7 @@ function PaginaInicial() {
                 <Stack direction="row" spacing={30} justifyContent="center">
                     <button variant="contained" className="btn-home">Estoque</button>
                     <button variant="contained" className="btn-home">Produtos</button>
-                    <button variant="contained" className="btn-home">Financeiro</button>
+                    <button variant="contained" className="btn-home" onClick={handleFinanceiroClick}>Financeiro</button>
                 </Stack>
             </Box>
         </Box>

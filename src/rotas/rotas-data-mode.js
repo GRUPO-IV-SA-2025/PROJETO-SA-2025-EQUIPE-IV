@@ -1,8 +1,8 @@
-import { Component } from "react"
 import App from "../App";
 import TelaLogin from "../telas/Login/Login";
 import TelaCadastro from "../telas/Cadastro/Cadastro";
 import PaginaInicial from "../telas/PaginaInicial/PaginaInicial"
+import Financeiro from "../pages/Financeiro/Financeiro";
 
 const rotas = [
     {
@@ -18,8 +18,12 @@ const rotas = [
         Component: <TelaCadastro />
     },
     {
-        path: '/pages/Home',
+        path: '/pages/PaginaInicial',
         Component: <PaginaInicial />
+    },
+    {
+        path: '/pages/Financeiro',
+        Component: <Financeiro />
     }
 ]
 

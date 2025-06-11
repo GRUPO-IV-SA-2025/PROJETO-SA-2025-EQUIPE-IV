@@ -22,3 +22,18 @@
     background-color: #0081C4;
     color: #ffffff;
 }
+
+::-webkit-scrollbar{
+    width: 15px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: grey;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #003049;
+    border-radius: 10px;
+    height: 10px;
+}
