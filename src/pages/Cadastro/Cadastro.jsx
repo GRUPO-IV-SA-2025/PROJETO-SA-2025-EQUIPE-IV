@@ -1,17 +1,13 @@
-import { Box, Button, Stack, TextField } from '@mui/material';
+import { Box, Button, IconButton, Stack, TextField, InputAdornment } from '@mui/material';
 import './Cadastro.css';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto';
 import imgWorker from '/images/Checking boxes-amico.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function TelaCadastro() {
     const navigate = useNavigate();
-
-    // const handleHomeClick = (e) => {
-    //     e.preventDefault();
-    //     navigate('/telas/PaginaInicial/PaginaInicial')
-    // }
 
     const [formData, setFormData] = useState({
         empresa: '',
@@ -86,15 +82,13 @@ function TelaCadastro() {
 
         if (hasError) return;
 
-        // Salvar os dados do usuário no localStorage
         localStorage.setItem('usuarioCadastrado', JSON.stringify({
-          email: formData.email,
-          senha: formData.senha
+            email: formData.email,
+            senha: formData.senha
         }));
-        
+
         alert('Cadastro realizado com sucesso!');
         navigate('/login');
-        
     };
 
     const handleButtonClick = (e) => {
@@ -116,34 +110,65 @@ function TelaCadastro() {
                         <TextField name='sobrenome' value={formData.sobrenome} onChange={handleChange} fullWidth label="Sobrenome" variant="outlined"
                             error={errors.sobrenome} helperText={errors.sobrenome ? 'Campo obrigatório' : ''} sx={{ mb: 1 }} />
 
-                        {/* <TextField name='cnpj' value={formData.cnpj} onChange={handleChange} fullWidth label="CNPJ" variant="outlined"
-                            error={errors.cnpj} helperText={errors.cnpj ? 'Campo obrigatório' : ''} sx={{ mb: 1 }} /> */}
-
                         <TextField name='contato' value={formData.contato} onChange={handleChange} fullWidth label="Número de contato" variant="outlined"
                             error={errors.contato} helperText={errors.contato ? 'Campo obrigatório' : ''} sx={{ mb: 1 }} />
 
                         <TextField name='email' value={formData.email} onChange={handleChange} fullWidth label="E-mail" variant="outlined"
                             error={errors.email} helperText={errors.email ? 'Informe um e-mail válido' : ''} sx={{ mb: 1 }} />
 
-                        <TextField name='senha' type={mostrarSenha ? 'text' : 'password'} value={formData.senha} onChange={handleChange} fullWidth label="Crie uma senha forte" variant="outlined"
-                            error={errors.senha} helperText={errors.senha ? 'Campo obrigatório' : ''} sx={{ mb: 1 }}
-                            InputProps={{
-                                endAdornment: (
-                                    <Button onClick={toggleMostrarSenha} sx={{ textTransform: 'none' }}>
-                                        {mostrarSenha ? 'Ocultar' : 'Mostrar'}
-                                    </Button>
-                                )
+                        <TextField
+                            name='senha'
+                            value={formData.senha}
+                            onChange={handleChange}
+                            fullWidth
+                            label="Crie uma senha forte"
+                            variant="outlined"
+                            type={mostrarSenha ? "text" : "password"}
+                            error={errors.senha}
+                            helperText={errors.senha ? 'Campo obrigatório' : ''}
+                            sx={{ mb: 1 }}
+                            slotProps={{
+                                input: {
+                                    endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={toggleMostrarSenha}
+                                            edge="end"
+                                        >
+                                            {mostrarSenha ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    )
+                                }
                             }}
                         />
 
-                        <TextField name='confirmarSenha' type={mostrarConfirmarSenha ? 'text' : 'password'} value={formData.confirmarSenha} onChange={handleChange} fullWidth label="Confirme sua senha" variant="outlined"
-                            error={errors.confirmarSenha} helperText={errors.confirmarSenha ? 'As senhas não coincidem ou campo vazio' : ''} sx={{ mb: 1 }}
-                            InputProps={{
-                                endAdornment: (
-                                    <Button onClick={toggleMostrarConfirmarSenha} sx={{ textTransform: 'none' }}>
-                                        {mostrarConfirmarSenha ? 'Ocultar' : 'Mostrar'}
-                                    </Button>
-                                )
+                        <TextField
+                            name='confirmarSenha'
+                            value={formData.confirmarSenha}
+                            onChange={handleChange}
+                            fullWidth
+                            label="Confirme sua senha"
+                            variant="outlined"
+                            type={mostrarConfirmarSenha ? "text" : "password"}
+                            error={errors.confirmarSenha}
+                            helperText={errors.confirmarSenha ? 'As senhas não coincidem ou campo vazio' : ''}
+                            sx={{ mb: 1 }}
+                            slotProps={{
+                                input: {
+                                    endAdornment : (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={toggleMostrarConfirmarSenha}
+                                            edge="end"
+                                        >
+                                            {mostrarConfirmarSenha ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    )
+                                }
                             }}
                         />
 
