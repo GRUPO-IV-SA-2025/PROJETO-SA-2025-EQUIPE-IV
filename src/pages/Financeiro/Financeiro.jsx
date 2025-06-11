@@ -23,7 +23,7 @@ function Financeiro() {
 
                     <Grid container spacing={4} mb={4} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'stretch', }}
                     >
-                        <Grid item xs={12} md={6}>
+                        <Grid sx={{xs:12, md:6}}>
                             <Paper elevation={4} sx={{ p: 2, height: '100%' }}>
                                 <Typography variant="subtitle1" fontWeight="bold" color="white" bgcolor="#004468" p={1} borderRadius="8px 8px 0 0">
                                     Saldo Atual
@@ -42,7 +42,7 @@ function Financeiro() {
                             </Paper>
                         </Grid>
                  
-                        <Grid item xs={12} md={6}>
+                        <Grid sx={{xs:12, md:6}}>
                             <Paper elevation={4} sx={{ p: 2, height: '100%' }} >
                                 
                                 <Typography variant="subtitle1" fontWeight="bold" color="white" bgcolor="#004468" p={1} borderRadius="8px 8px 8px 8px">
@@ -65,7 +65,7 @@ function Financeiro() {
                             </Paper>
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid sx={{xs:12, md:6}}>
                             <Paper elevation={4} sx={{ p: 2, height: '100%' }}>
                                 <Typography variant="subtitle1" fontWeight="bold" color="white" bgcolor="#004468" p={1} borderRadius="8px 8px 0 0">
                                     Custo do Estoque
@@ -85,7 +85,7 @@ function Financeiro() {
                             </Paper>
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid sx={{xs:12, md:6}}>
                             <Paper elevation={4} sx={{ p: 2 }}>
                                 <Typography variant="subtitle1" fontWeight="bold" color="white" bgcolor="#004468" p={1} borderRadius="8px 8px 0 0">
                                     Custo de Entrada
@@ -105,7 +105,7 @@ function Financeiro() {
                             </Paper>
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid sx={{xs:12, md:6}}>
                             <Paper elevation={4} sx={{ p: 2 }}>
                                 <Typography variant="subtitle1" fontWeight="bold" color="white" bgcolor="#004468" p={1} borderRadius="8px 8px 0 0">
                                     Custo de Saída

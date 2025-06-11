@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto'
 import { useState } from 'react';
 import { Box, Button, Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material';
+import imgWorker from '/images/Checking boxes-amico.svg';
+import img from '/images/conceito-de-tecnologia-futurista.jpg';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
@@ -61,8 +63,7 @@ function TelaLogin() {
         <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
             <Box sx={{ width: '50%', backgroundColor: '#0077b6' }}>
                 <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '8px' }}>
-                    {/* <p className='text-img'>Controle seu estoque de forma ágil e simples – rápido e eficiente!</p> */}
-                    {/* <img src={imgWorker} className='img-worker' alt="" /> */}
+                <img src={img} className='img-worker' alt="" />
                 </Box>
             </Box>
             <Box sx={{ width: '50%', backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
