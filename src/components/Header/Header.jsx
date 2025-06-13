@@ -60,6 +60,11 @@ function Header() {
         navigate('/pages/Financeiro')
     }
 
+    const handleClickPerfil = (e) => {
+        e.preventDefault();
+        navigate('/pages/Perfil')
+    }
+
 
     return (
         <div className='container-header'>
@@ -157,8 +162,9 @@ function Header() {
                             open={openUsuario}
                             onClose={handleCloseUsuario}
                         >
-                            <MenuItem>
-                                <Avatar sx={{ width: 24, height: 24, mr: 1 }} /> My account
+                            <MenuItem onClick={handleClickPerfil}>
+                                <Avatar sx={{ width: 24, height: 24, mr: 1 }} /> 
+                                My account
                             </MenuItem>
 
                             <MenuItem onClick={() => { handleCloseUsuario(); handleLogOut(); }}>Sair</MenuItem>
