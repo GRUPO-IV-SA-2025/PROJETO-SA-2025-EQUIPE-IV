@@ -3,6 +3,8 @@ import TelaLogin from "../telas/Login/Login";
 import TelaCadastro from "../telas/Cadastro/Cadastro";
 import PaginaInicial from "../telas/PaginaInicial/PaginaInicial"
 import Financeiro from "../pages/Financeiro/Financeiro";
+import { Component } from "react";
+import PerfilUsuario from "../pages/PerfilUsuario/PerfilUsuario";
 
 const rotas = [
     {
@@ -24,6 +26,10 @@ const rotas = [
     {
         path: '/pages/Financeiro',
         Component: <Financeiro />
+    },
+    {
+        path: '/pages/PerfilUsuario',
+        Component: <PerfilUsuario />
     }
 ]
 

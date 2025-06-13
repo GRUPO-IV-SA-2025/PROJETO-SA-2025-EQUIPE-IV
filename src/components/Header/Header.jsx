@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { useAuth } from '../../contexts/AuthContext';
 import BtnCadastro from '../BtnCadastro/BtnCadastro'
 import BtnLogin from '../BtnLogin/BtnLogin'
@@ -13,8 +13,13 @@ function Header() {
     const handleLogOut = () => {
         if (window.confirm('Tem certeza que deseja sair?')) {
             logOut();
-            navigate('/');
+            navigate('/pages/Login');
         }
+    }
+
+    const handleClick = () => {
+        // console.log('Button clicked'); 
+        navigate("/pages/PerfilUsuario")
     }
 
     return (
@@ -22,7 +27,10 @@ function Header() {
             <LogoProjeto />
             <div className='container-btns-header'>
                 {usuarioLogado ? (
-                    <Button onClick={handleLogOut} variant="contained">Sair</Button>
+                    <Box>
+                       <Button onClick={handleClick}>Perfil</Button>
+                        <Button onClick={handleLogOut} variant="contained">Sair</Button>
+                    </Box>
                 ) : (
                     <>
                         <BtnLogin />
