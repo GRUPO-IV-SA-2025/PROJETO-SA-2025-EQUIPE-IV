@@ -21,7 +21,7 @@ function Perfil() {
                 </Box>
 
                 <Box sx={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
-                    <Typography variant="h5" sx={{paddingTop: 10}}>Nome da Empresa</Typography>
+                    <Typography variant="h5" sx={{paddingTop: 8}}>Nome da Empresa</Typography>
         
                     <TextField id="outlined-basic" variant="outlined"
                         slotProps={{
@@ -31,7 +31,7 @@ function Perfil() {
                         }}
                         sx={{ width: '750px'}} />
 
-                    <Typography variant="h5" sx={{paddingTop: 8}}>Proprietário</Typography>
+                    <Typography variant="h5" sx={{paddingTop: 7}}>Proprietário</Typography>
                     <TextField id="outlined-basic" variant="outlined"
                         slotProps={{
                             input: {
@@ -40,7 +40,7 @@ function Perfil() {
                         }}
                         sx={{ width: '750px' }} />
 
-                    <Typography variant="h5" sx={{paddingTop: 8}}>Contato</Typography>
+                    <Typography variant="h5" sx={{paddingTop: 7}}>Contato</Typography>
                     <TextField id="outlined-basic" variant="outlined"
                         slotProps={{
                             input: {
@@ -49,7 +49,7 @@ function Perfil() {
                         }}
                         sx={{ width: '750px' }} />
 
-                    <Typography variant="h5" sx={{paddingTop: 8}}>E-mail</Typography>
+                    <Typography variant="h5" sx={{paddingTop: 7}}>E-mail</Typography>
                     <TextField id="outlined-basic" variant="outlined"
                         slotProps={{
                             input: {

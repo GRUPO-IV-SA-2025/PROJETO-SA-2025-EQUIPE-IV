@@ -65,6 +65,10 @@ function Header() {
         navigate('/pages/Perfil')
     }
 
+        const handleClickPaginaInicial = (e) => {
+        e.preventDefault();
+        navigate('/pages/PaginaInicial')
+    }
 
     return (
         <div className='container-header'>
@@ -73,7 +77,7 @@ function Header() {
                 {usuarioLogado ? (
                     // <div className='teste'>
                     <>
-                        <Typography sx={{ display: 'flex', alignItems: 'center', padding: '15px' }}>Home</Typography>
+                        <Typography onClick={handleClickPaginaInicial} sx={{ display: 'flex', alignItems: 'center', padding: '15px', cursor: 'pointer' }}>Home</Typography>
                         <Typography sx={{ display: 'flex', alignItems: 'center', padding: '15px' }}>Sobre</Typography>
 
                         <Typography
@@ -83,8 +87,11 @@ function Header() {
                                 padding: '15px',
                                 cursor: 'pointer', // Adiciona cursor de clique
                                 borderRadius: 2,
+                                backgroundColor: 'white',
+                                transition: 'backgroundColor 0.5s',
                                 '&:hover': {
                                     backgroundColor: '#1976d2', // Azul do MUI (ou outra cor)
+                                    transform: 'scale()',
                                 }
                             }}
                             onClick={handleClickEstoque}
@@ -153,7 +160,7 @@ function Header() {
                         </Menu>
 
 
-                        <IconButton onClick={handleClickUsuario}>
+                        <IconButton onClick={handleClickUsuario} sx={{paddingLeft: '5'}}>
                             <Avatar sx={{ backgroundColor: '#1976d2' }}>I</Avatar>
                         </IconButton>
 
