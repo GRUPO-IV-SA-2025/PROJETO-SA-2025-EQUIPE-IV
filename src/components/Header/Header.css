@@ -27,3 +27,9 @@
     font-size: large;
     width: 70%;
 }
+
+.teste{
+    display: flex;
+    /* flex-direction: row;
+    justify-content: space-around; */
+}
