@@ -54,6 +54,13 @@ function Header() {
         setAnchorUsuario(null)
     }
 
+
+    const handleFinanceiroClick = (e) => {
+        e.preventDefault();
+        navigate('/pages/Financeiro')
+    }
+
+
     return (
         <div className='container-header'>
             <LogoProjeto />
@@ -123,8 +130,8 @@ function Header() {
                             anchorEl={anchorEmpresa}
                             open={openEmpresa}
                             onClose={() => handleCloseEmpresa()}
-                            // anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                            // transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
                             Paper={{
                                 sx: {
                                     borderRadius: 2, // bordas arredondadas
@@ -134,7 +141,7 @@ function Header() {
                             }}
                         >
                             <MenuItem
-                            // onClick={() => handleCloseEstoque('/estoque')}
+                                onClick={handleFinanceiroClick}
                             >
                                 Financeiro
                             </MenuItem>
@@ -142,7 +149,7 @@ function Header() {
 
 
                         <IconButton onClick={handleClickUsuario}>
-                            <Avatar sx={{backgroundColor: '#1976d2'}}>I</Avatar>
+                            <Avatar sx={{ backgroundColor: '#1976d2' }}>I</Avatar>
                         </IconButton>
 
                         <Menu
