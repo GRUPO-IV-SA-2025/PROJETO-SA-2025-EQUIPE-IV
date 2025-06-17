@@ -13,7 +13,7 @@ function Header() {
     const handleLogOut = () => {
         if (window.confirm('Tem certeza que deseja sair?')) {
             logOut();
-            navigate('/');
+            navigate('/LoginUsuario', { replace: true });
         }
     }
 

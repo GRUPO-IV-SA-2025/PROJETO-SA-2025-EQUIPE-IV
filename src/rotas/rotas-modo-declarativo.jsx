@@ -3,6 +3,8 @@ import TelaLogin from "../pages/Login/Login";
 import TelaCadastro from "../pages/Cadastro/Cadastro";
 import PaginaInicial from "../pages/PaginaInicial/PaginaInicial";
 import Financeiro from "../pages/Financeiro/Financeiro";
+import Produtos from "../pages/Produtos/Produtos";
+import Perfil from "../pages/Perfil/Perfil"
 
 const rotas = [
     {
