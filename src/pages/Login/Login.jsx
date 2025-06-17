@@ -50,7 +50,7 @@ function TelaLogin() {
                 nome: 'Administrador',
                 email: formData.email
             });
-            navigate('/pages/PaginaInicial');
+            navigate('/pages/Dashboard');
         } else {
             alert('Credenciais inválidas!');
         }

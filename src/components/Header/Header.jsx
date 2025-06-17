@@ -67,7 +67,12 @@ function Header() {
 
         const handleClickPaginaInicial = (e) => {
         e.preventDefault();
-        navigate('/pages/PaginaInicial')
+        navigate('/pages/Dashboard')
+    }
+
+    const handleClickSobre = (e) => {
+        e.preventDefault();
+        navigate('/pages/Sobre')
     }
 
     return (
@@ -78,7 +83,7 @@ function Header() {
                     // <div className='teste'>
                     <>
                         <Typography onClick={handleClickPaginaInicial} sx={{ display: 'flex', alignItems: 'center', padding: '15px', cursor: 'pointer' }}>Home</Typography>
-                        <Typography sx={{ display: 'flex', alignItems: 'center', padding: '15px' }}>Sobre</Typography>
+                        <Typography onClick={handleClickSobre} sx={{ display: 'flex', alignItems: 'center', padding: '15px', cursor:  'pointer'}}>Sobre</Typography>
 
                         <Typography
                             sx={{

@@ -1,6 +1,6 @@
 import { Box, Grid, Stack, Button, Typography, Paper, TextField } from "@mui/material";
 import Header from '../../components/Header/Header';
-import './PaginaInicial.css';
+import './Dashboard.css';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { ChartContainer } from '@mui/x-charts/ChartContainer';
 import { BarPlot } from '@mui/x-charts/BarChart';
@@ -11,7 +11,7 @@ import { BarLabel } from '@mui/x-charts';
 import { PieChart } from "@mui/x-charts";
 import { useNavigate } from "react-router";
 
-function PaginaInicial() {
+function Dashboard() {
     const navigate = useNavigate();
 
     const handleFinanceiroClick = (e) => {
@@ -26,7 +26,9 @@ function PaginaInicial() {
 
             <Box sx={{ width: '100%', backgroundColor: 'white', marginTop: "85px" }}>
                 <Box sx={{ marginTop: "35px", marginLeft: "35px" }}>
-                    <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>Home</Typography>
+                    <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>
+                        Dashboard
+                    </Typography>
                 </Box>
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', }}>
@@ -109,4 +111,4 @@ function PaginaInicial() {
     )
 }
 
-export default PaginaInicial;
+export default Dashboard;
