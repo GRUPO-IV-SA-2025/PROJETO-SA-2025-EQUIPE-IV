@@ -1,7 +1,7 @@
 import { Box, Button, IconButton, Stack, TextField, InputAdornment } from '@mui/material';
 import './CadastroUsuario.css';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto';
-import imgWorker from '/images/Checking boxes-amico.svg';
+import imgWorker from '/src/images/Checking boxes-amico.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Visibility, VisibilityOff } from '@mui/icons-material';

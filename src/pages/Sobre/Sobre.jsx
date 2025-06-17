@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import Header from '../../components/Header/Header'
 import Paper from '@mui/material/Paper';
 // import img from 'images/imgTESTE.png'
-import img from '../../../public/images/imgTESTE.png'
+import img from '/src/images/imgTESTE.png'
 
 function Sobre() {
 

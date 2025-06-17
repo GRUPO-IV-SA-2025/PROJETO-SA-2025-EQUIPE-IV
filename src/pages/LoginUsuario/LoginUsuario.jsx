@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto'
 import { useState } from 'react';
 import { Box, Button, Stack, TextField } from '@mui/material';
-import img from '/images/conceito-de-tecnologia-futurista.jpg';
+import img from '/src/images/conceito-de-tecnologia-futurista.jpg';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';

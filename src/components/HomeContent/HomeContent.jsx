@@ -1,7 +1,7 @@
 import { Box, Card, CardContent } from '@mui/material';
 import BtnCadastro from '../BtnCadastro/BtnCadastro';
 import './HomeContent.css'
-import img from '/images/warehouse-worker.avif';
+import img from '/src/images/warehouse-worker.avif';
 
 const cardSharedStyles = {
     height: '280px',
