@@ -125,10 +125,7 @@ function Financeiro() {
                             </Paper>
                         </Grid>
                     </Grid>
-
                 </Box>
-
-
             </Box>
         </Box >
     )

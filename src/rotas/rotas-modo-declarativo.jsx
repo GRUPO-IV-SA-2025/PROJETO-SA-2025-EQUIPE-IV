@@ -1,10 +1,12 @@
 import App from "../App";
-import TelaLogin from "../pages/Login/Login";
-import TelaCadastro from "../pages/Cadastro/Cadastro";
-import PaginaInicial from "../pages/PaginaInicial/PaginaInicial";
+import Dashboard from "../pages/Dashboard/Dashboard";
 import Financeiro from "../pages/Financeiro/Financeiro";
 import Produtos from "../pages/Produtos/Produtos";
 import Perfil from "../pages/Perfil/Perfil"
+import Sobre from "../pages/Sobre/Sobre"
+import TelaCadastroUsuario from "../pages/CadastroUsuario/CadastroUsuario";
+import TelaLogin from "../pages/LoginUsuario/LoginUsuario";
+
 
 const rotas = [
     {
@@ -12,20 +14,32 @@ const rotas = [
         element: <App /> 
     },
     {
-        path: '/pages/Login',
+        path: '/LoginUsuario',
         element: <TelaLogin /> 
     },
     {
-        path: '/pages/Cadastro',
-        element: <TelaCadastro /> 
+        path: '/CadastroUsuario',
+        element: <TelaCadastroUsuario /> 
     },
     {
-        path: '/pages/PaginaInicial',
-        element: <PaginaInicial />
+        path: '/Dashboard',
+        element: <Dashboard />
     },
     {
-        path: '/pages/Financeiro',
+        path: '/Financeiro',
         element: <Financeiro />
+    },
+    {
+        path: '/Produtos',
+        element: <Produtos />
+    },
+    {
+        path: '/Perfil',
+        element: <Perfil />
+    },
+    {
+        path: '/Sobre',
+        element: <Sobre />
     }
 ]
 

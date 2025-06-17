@@ -6,7 +6,7 @@ const BtnLogin = () => {
 
     const handleClick = () => {
         // console.log('Button clicked'); 
-        navigate("/pages/Login")
+        navigate("/LoginUsuario")
     }
 
     return (

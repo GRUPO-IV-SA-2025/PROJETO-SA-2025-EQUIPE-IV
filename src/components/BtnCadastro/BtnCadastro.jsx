@@ -6,7 +6,7 @@ const BtnCadastro = () => {
 
     const handleClick = () => {
         // console.log('Button clicked'); 
-        navigate("/pages/Cadastro")
+        navigate("/CadastroUsuario")
     }
 
     return (
