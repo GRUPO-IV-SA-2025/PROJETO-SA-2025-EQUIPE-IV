@@ -7,6 +7,7 @@ import img from '/src/images/conceito-de-tecnologia-futurista.jpg';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
+import api from '../../services/api';
 
 
 function TelaLogin() {
@@ -15,38 +16,43 @@ function TelaLogin() {
     const [errors, setErrors] = useState({ email: false, senha: false });
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const { login } = useAuth();
+    const [usuario, setUsuario] = useState('');
+    const [senha, setSenha] = useState('')
 
     const alteraVisibilidadeSenha = () => {
         setMostrarSenha(!mostrarSenha)
     }
 
-
-    const handleChange = (e) => {
-        const { name, value } = e.target; // Corrigido: use 'value' em vez de 'valorCampo'
-        setFormData(prev => ({ ...prev, [name]: value }));
-
-        if (value.trim() !== '') {
-            setErrors(prev => ({ ...prev, [name]: false }));
-        }
-    }
-
-    const handleEntrarClick = () => {
-        const novosErros = {
-            email: formData.email.trim() === '',
-            senha: formData.senha.trim() === ''
+    const Entrar = async () => {
+        if (!formData.email || !formData.senha) {
+            setErrors({
+                email: !formData.email,
+                senha: !formData.senha
+            })
+            return;
         }
 
-        setErrors(novosErros);
+        try {
+            const response = await api.post('http://localhost:3000/login', {
+                email: formData.email,
+                senha: formData.senha
+            })
+
+            const {token} = response.data
+        } catch (error) {
+
+        }
+
 
         if (novosErros.email || novosErros.senha) {
             return;
         }
 
-        const usuarioValido = formData.email === 'admin@estoque.com' &&
-            formData.senha === 'admin123';
+        const usuarioValido = formData.email === '' &&
+            formData.senha === '';
 
         if (usuarioValido) {
-            login({ 
+            login({
                 nome: 'Administrador',
                 email: formData.email
             });
@@ -61,19 +67,19 @@ function TelaLogin() {
         <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
             <Box sx={{ width: '50%', backgroundColor: '#0077b6' }}>
                 <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '8px' }}>
-                <img src={img} className='img-worker' alt="" />
+                    <img src={img} className='img-worker' alt="" />
                 </Box>
             </Box>
             <Box sx={{ width: '50%', backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Stack spacing={5} sx={{ width: '50%', alignItems: 'center' }}>
                     <LogoProjeto />
                     <Stack spacing={5} sx={{ width: '100%' }}>
-                        <TextField name='email' value={formData.email} onChange={handleChange} fullWidth label="Seu e-mail" variant="outlined"
+                        <TextField name='email' value={formData.email} onChange={setUsuario} fullWidth label="Seu e-mail" variant="outlined"
                             error={errors.email} helperText={errors.empresa ? 'Campo obrigatório' : ''} />
                         <TextField
                             name='senha'
                             value={formData.senha}
-                            onChange={handleChange}
+                            onChange={setSenha}
                             fullWidth
                             label="Sua senha"
                             variant="outlined"
@@ -96,7 +102,7 @@ function TelaLogin() {
                                 }
                             }}
                         />
-                        <Button sx={{ height: '50px' }} variant="contained" onClick={handleEntrarClick}>
+                        <Button sx={{ height: '50px' }} variant="contained" onClick={Entrar}>
                             Acessar minha conta
                         </Button>
                         <p className="signup-text">
