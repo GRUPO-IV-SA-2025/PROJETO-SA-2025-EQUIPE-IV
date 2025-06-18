@@ -41,7 +41,7 @@ function Produtos() {
                 {isAddingrProduto && (
                     <div className="modal">
                         <div className="modal-content">
-                            <h2>Adicionar Produto</h2>
+                            <h2>Novo Produto</h2>
                             <input
                                 placeholder="Tipo"
                             />
