@@ -65,7 +65,7 @@ function Header() {
         navigate('/Perfil')
     }
 
-        const handleClickPaginaInicial = (e) => {
+    const handleClickPaginaInicial = (e) => {
         e.preventDefault();
         navigate('/Dashboard')
     }
@@ -82,8 +82,30 @@ function Header() {
                 {usuarioLogado ? (
                     // <div className='teste'>
                     <>
-                        <Typography onClick={handleClickPaginaInicial} sx={{ display: 'flex', alignItems: 'center', padding: '15px', cursor: 'pointer' }}>Home</Typography>
-                        <Typography onClick={handleClickSobre} sx={{ display: 'flex', alignItems: 'center', padding: '15px', cursor:  'pointer'}}>Sobre</Typography>
+                        <Typography onClick={handleClickPaginaInicial} sx={{
+                            display: 'flex', alignItems: 'center', padding: '15px', cursor: 'pointer',
+                            borderRadius: 2,
+                            backgroundColor: 'white',
+                            transition: 'backgroundColor 0.5s',
+                            '&:hover': {
+                                backgroundColor: '#1976d2', // Azul do MUI (ou outra cor)
+                                transform: 'scale()',
+                            }
+                        }}>
+                            Home
+                        </Typography>
+                        <Typography onClick={handleClickSobre} sx={{
+                            display: 'flex', alignItems: 'center', padding: '15px', cursor: 'pointer',
+                            borderRadius: 2,
+                            backgroundColor: 'white',
+                            transition: 'backgroundColor 0.5s',
+                            '&:hover': {
+                                backgroundColor: '#1976d2', // Azul do MUI (ou outra cor)
+                                transform: 'scale()',
+                            }
+                        }}>
+                            Sobre
+                        </Typography>
 
                         <Typography
                             sx={{
@@ -108,7 +130,8 @@ function Header() {
                         <Menu
                             anchorEl={anchorEstoque}
                             open={openEstoque}
-                            onClose={() => handleCloseEstoque()}
+                            onClose={handleCloseEstoque}
+                            autoFocus={false}
                             Paper={{
                                 sx: {
                                     borderRadius: 2, // bordas arredondadas
@@ -117,10 +140,14 @@ function Header() {
                                 }
                             }}
                         >
-                            <MenuItem onClick={() => handleCloseEstoque('/estoque')}>
+                            <MenuItem
+                            // onClick={() => handleCloseEstoque('/estoque')}
+                            >
                                 Estoque
                             </MenuItem>
-                            <MenuItem onClick={() => handleCloseEstoque('/produtos')}>
+                            <MenuItem
+                            // onClick={() => handleCloseEstoque('/produtos')}
+                            >
                                 Produtos
                             </MenuItem>
 
@@ -149,6 +176,7 @@ function Header() {
                             onClose={() => handleCloseEmpresa()}
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                             transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                            autoFocus={false}
                             Paper={{
                                 sx: {
                                     borderRadius: 2, // bordas arredondadas
@@ -165,7 +193,7 @@ function Header() {
                         </Menu>
 
 
-                        <IconButton onClick={handleClickUsuario} sx={{paddingLeft: '5'}}>
+                        <IconButton onClick={handleClickUsuario} sx={{ paddingLeft: '5'}}>
                             <Avatar sx={{ backgroundColor: '#1976d2' }}>I</Avatar>
                         </IconButton>
 
@@ -175,7 +203,7 @@ function Header() {
                             onClose={handleCloseUsuario}
                         >
                             <MenuItem onClick={handleClickPerfil}>
-                                <Avatar sx={{ width: 24, height: 24, mr: 1 }} /> 
+                                <Avatar sx={{ width: 24, height: 24, mr: 1, backgroundColor: '#1976d2' }} />
                                 My account
                             </MenuItem>
 
