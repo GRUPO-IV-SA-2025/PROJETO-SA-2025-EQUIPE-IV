@@ -1,7 +1,8 @@
 import App from "../App";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Financeiro from "../pages/Financeiro/Financeiro";
-import Produtos from "../pages/Produtos/Produtos";
+// import Produtos from "../pages/Produtos/Produtos";
+import Estoque from "../pages/Estoque/Estoque";
 import Perfil from "../pages/Perfil/Perfil"
 import Sobre from "../pages/Sobre/Sobre"
 import TelaCadastroUsuario from "../pages/CadastroUsuario/CadastroUsuario";
@@ -30,8 +31,8 @@ const rotas = [
         element: <Financeiro />
     },
     {
-        path: '/Produtos',
-        element: <Produtos />
+        path: '/Estoque',
+        element: <Estoque />
     },
     {
         path: '/Perfil',

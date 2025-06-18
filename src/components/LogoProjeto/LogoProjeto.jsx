@@ -1,4 +1,4 @@
-import iconBox from '/images/icon-caixa.svg';
+import iconBox from '../../images/icon-caixa.svg';
 import './LogoProjeto.css';
 
 const LogoProjeto = () => {
