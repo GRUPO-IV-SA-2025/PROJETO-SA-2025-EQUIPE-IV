@@ -1,5 +1,5 @@
 import App from "../App";
-import TelaLogin from "../telas/Login/Login";
+import TelaLogin from "../telas/LoginUsuario/LoginUsuario";
 import TelaCadastro from "../telas/Cadastro/Cadastro";
 import Dashboard from "../telas/Dashboard/Dashboard"
 import Financeiro from "../pages/Financeiro/Financeiro";
