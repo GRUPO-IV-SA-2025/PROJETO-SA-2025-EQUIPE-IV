@@ -6,9 +6,7 @@ import Home from './pages/Home/Home'
 function App() {
 
   return (
-    <AuthProvider>
       <Home />
-    </AuthProvider>
   )
 }
 

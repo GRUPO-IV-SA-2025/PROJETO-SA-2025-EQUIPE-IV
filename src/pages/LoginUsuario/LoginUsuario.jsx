@@ -1,9 +1,9 @@
-import './Login.css';
+import './LoginUsuario.css';
 import { Link, useNavigate } from 'react-router';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto'
 import { useState } from 'react';
 import { Box, Button, Stack, TextField } from '@mui/material';
-import img from '/images/conceito-de-tecnologia-futurista.jpg';
+import img from '/src/images/conceito-de-tecnologia-futurista.jpg';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
@@ -50,7 +50,7 @@ function TelaLogin() {
                 nome: 'Administrador',
                 email: formData.email
             });
-            navigate('/pages/PaginaInicial');
+            navigate('/Dashboard');
         } else {
             alert('Credenciais inválidas!');
         }
@@ -102,7 +102,7 @@ function TelaLogin() {
                         <p className="signup-text">
                             Não possui conta ainda?
                             <Link
-                                to="/pages/Cadastro"
+                                to="/CadastroUsuario"
                                 className="signup-link" >
                                 Cadastre-se
                             </Link>
@@ -114,4 +114,4 @@ function TelaLogin() {
     )
 }
 
-export default TelaLogin; 
+export default TelaLogin;

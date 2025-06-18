@@ -21,7 +21,7 @@ function Header() {
     const handleLogOut = () => {
         if (window.confirm('Tem certeza que deseja sair?')) {
             logOut();
-            navigate('/');
+            navigate('/LoginUsuario', { replace: true });
         }
     }
 
@@ -57,17 +57,22 @@ function Header() {
 
     const handleFinanceiroClick = (e) => {
         e.preventDefault();
-        navigate('/pages/Financeiro')
+        navigate('/Financeiro')
     }
 
     const handleClickPerfil = (e) => {
         e.preventDefault();
-        navigate('/pages/Perfil')
+        navigate('/Perfil')
     }
 
         const handleClickPaginaInicial = (e) => {
         e.preventDefault();
-        navigate('/pages/PaginaInicial')
+        navigate('/Dashboard')
+    }
+
+    const handleClickSobre = (e) => {
+        e.preventDefault();
+        navigate('/Sobre')
     }
 
     return (
@@ -78,7 +83,7 @@ function Header() {
                     // <div className='teste'>
                     <>
                         <Typography onClick={handleClickPaginaInicial} sx={{ display: 'flex', alignItems: 'center', padding: '15px', cursor: 'pointer' }}>Home</Typography>
-                        <Typography sx={{ display: 'flex', alignItems: 'center', padding: '15px' }}>Sobre</Typography>
+                        <Typography onClick={handleClickSobre} sx={{ display: 'flex', alignItems: 'center', padding: '15px', cursor:  'pointer'}}>Sobre</Typography>
 
                         <Typography
                             sx={{

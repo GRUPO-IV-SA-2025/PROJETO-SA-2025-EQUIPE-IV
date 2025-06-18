@@ -1,7 +1,7 @@
 import { Box, Card, CardContent } from '@mui/material';
 import BtnCadastro from '../BtnCadastro/BtnCadastro';
-import './Content.css'
-import img from '/images/warehouse-worker.avif';
+import './HomeContent.css'
+import img from '/src/images/warehouse-worker.avif';
 
 const cardSharedStyles = {
     height: '280px',
@@ -12,7 +12,7 @@ const cardSharedStyles = {
 }
 
 
-function Body() {
+function HomeContent() {
     return (
         <div className="container-body">
             <div className='titulo-texto-imagem'>
@@ -53,4 +53,4 @@ function Body() {
     )
 }
 
-export default Body;
+export default HomeContent;

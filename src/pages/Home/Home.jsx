@@ -1,15 +1,12 @@
-import Header from "../../components/Header/Header";
-import Content from '../../components/Content/Content';
-import Footer from "../../components/Footer/Footer";
+import HomeContent from "../../components/HomeContent/HomeContent";
+import Layout from "../../components/Layout/Layout";
 
 function Home() {
 
     return (
-        <>
-            <Header />
-            <Content />
-            <Footer />
-        </>
+        <Layout>
+            <HomeContent />
+        </Layout>
     )
 }
 

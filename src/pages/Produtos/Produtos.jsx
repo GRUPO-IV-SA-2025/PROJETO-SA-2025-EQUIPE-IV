@@ -1,61 +1,102 @@
 import { useState } from "react";
 import Header from "../../components/Header/Header";
-import { Box, Button, FormControl, InputLabel, MenuItem, NativeSelect, Select, Typography } from "@mui/material";
+import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Stack, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
 
+function Produtos1() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [produtos, setProdutos] = useState([
+    { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
+    { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
+    { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
+    { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
+    { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
+    { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' }
+  ]);
 
-function Produtos() {
+  const [novoProduto, setNovoProduto] = useState({
+    descricao: '',
+    codigo: '',
+    categoria: ''
+  });
 
+  const abrirDialog = () => setIsDialogOpen(true);
+  const fecharDialog = () => {
+    setIsDialogOpen(false);
+    setNovoProduto({ descricao: '', codigo: '', categoria: '' });
+  };
 
-    const [isAddingrProduto, setIsAddingProduto] = useState(false);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNovoProduto((prev) => ({ ...prev, [name]: value }));
+  };
 
-    function adicionarProduto() {
-        setIsAddingProduto(true);
-    }
+  const cadastrarProduto = () => {
+    setProdutos((prev) => [...prev, novoProduto]);
+    fecharDialog();
+  };
 
-    return (
-        <Box sx={{ width: '100%', height: '100%', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
+  return (
+    <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header />
 
-            <Header />
+      <Box sx={{ backgroundColor: '#e6f3fa', flex: 1, marginTop: "85px", padding: '2rem' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+            <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>
+                Produtos
+            </Typography>
+            <Button variant='contained' size='large' sx={{ padding: '8px', height: '40px', borderRadius: '10px', fontWeight: 'Bold' }} onClick={abrirDialog}>
+                + Incluir cadastro
+            </Button>
+        </Box>
 
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow sx={{ backgroundColor: "#fffff" }}>
+                <TableCell><strong>Descrição</strong></TableCell>
+                <TableCell><strong>Código</strong></TableCell>
+                <TableCell><strong>Categoria</strong></TableCell>
+                <TableCell align="right"><strong>Ações</strong></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {produtos.map((produto, index) => (
+                <TableRow key={index}>
+                  <TableCell>{produto.descricao}</TableCell>
+                  <TableCell>{produto.codigo}</TableCell>
+                  <TableCell>{produto.categoria}</TableCell>
+                  <TableCell align="right">
+                    <Stack direction="row" spacing={1} justifyContent="flex-end">
+                      <Button variant="contained" size="small" sx={{ backgroundColor: '#0d47a1' }}>Estoque rápido</Button>
+                      <Button variant="contained" size="small" sx={{ backgroundColor: '#0288d1' }}>Editar</Button>
+                      <Button variant="contained" size="small" sx={{ backgroundColor: '#d32f2f' }}>Excluir</Button>
+                    </Stack>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
 
-            <Box sx={{ height: "100%", width: '100%', backgroundColor: 'white', marginTop: "85px" }}>
-                <Box sx={{ marginTop: "35px", marginLeft: "35px", marginRight: "35px", display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>
-                        Produtos
-                    </Typography>
-                    <Button variant='contained' size='large' sx={{ padding: '8px', height: '40px', borderRadius: '10px' }} onClick={adicionarProduto}>
-                        + Incluir Lançamento
-                    </Button>
-                </Box>
-                <Box>
-                    <FormControl sx={{ height: "100%", width: '30%', marginLeft: '35px' }} size='small' >
-                        <InputLabel id="select-label" variant="standard">Seleção de Produtos</InputLabel>
-                        <NativeSelect
-                            id="select-produtos"
-                        >
-                            <option value={1}>Produto Protótipo</option>
-                            <option value={2}>Produto Protótipo 2</option>
-                        </NativeSelect>
-                    </FormControl>
-                </Box>
-                {isAddingrProduto && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <h2>Novo Produto</h2>
-                            <input
-                                placeholder="Tipo"
-                            />
-                            <button onClick={() => setIsAddingProduto(false)}>Cancelar</button>
-                        </div>
-                    </div>
-                )}
-
-                <Box>
-
-                </Box>
-            </Box >
-        </Box >
-    )
+      <Dialog open={isDialogOpen} onClose={fecharDialog}>
+        <DialogTitle sx={{ fontWeight: 'bold', color: '#004468', fontSize: '30px' }}>Novo produto</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <TextField label="Descrição" name="descricao" value={novoProduto.descricao} onChange={handleChange} fullWidth />
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <TextField label="Código" name="codigo" value={novoProduto.codigo} onChange={handleChange} fullWidth />
+              <TextField label="Categoria" name="categoria" value={novoProduto.categoria} onChange={handleChange} fullWidth />
+            </Box>
+          </Stack>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button onClick={fecharDialog} variant="outlined" color="primary">Cancelar</Button>
+          <Button onClick={cadastrarProduto} variant="contained" sx={{ backgroundColor: '#004468' }}>Cadastrar</Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+  );
 }
 
-export default Produtos;
+export default Produtos1;

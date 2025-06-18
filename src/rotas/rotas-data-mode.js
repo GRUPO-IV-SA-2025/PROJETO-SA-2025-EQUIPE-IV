@@ -1,9 +1,10 @@
 import App from "../App";
 import TelaLogin from "../telas/Login/Login";
 import TelaCadastro from "../telas/Cadastro/Cadastro";
-import PaginaInicial from "../telas/PaginaInicial/PaginaInicial"
+import Dashboard from "../telas/Dashboard/Dashboard"
 import Financeiro from "../pages/Financeiro/Financeiro";
 import Perfil from "../pages/Perfil/Perfil"
+import Sobre from "../pages/Sobre/Sobre"
 
 const rotas = [
     {
@@ -19,8 +20,8 @@ const rotas = [
         Component: <TelaCadastro />
     },
     {
-        path: '/pages/PaginaInicial',
-        Component: <PaginaInicial />
+        path: '/pages/Dashboard',
+        Component: <Dashboard />
     },
     {
         path: '/pages/Financeiro',
@@ -29,6 +30,10 @@ const rotas = [
     {
         path: '/pages/Perfil',
         Component: <Perfil />
+    },
+    {
+        path: '/pages/Sobre',
+        Component: <Sobre />
     }
 ]
 
