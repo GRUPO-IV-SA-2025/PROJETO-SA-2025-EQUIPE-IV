@@ -7,11 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [carregando, setCarregando] = useState(true);
 
     useEffect(() => {
-        const usuarioNoStorage = localStorage.getItem('usuario');
         const token = localStorage.getItem('token');
-        if (usuarioNoStorage) {
-            setUsuario(JSON.parse(usuarioNoStorage))
-        }
 
         if (token) {
             try {
@@ -27,20 +23,22 @@ export const AuthProvider = ({ children }) => {
                 localStorage.removeItem('token');
             }
         }
-        setCarregando(false)
+        setCarregando(false);
     }, [])
 
-    const login = (dadosUsuario, token) => {
+    const login = (token) => {
+        localStorage.setItem('token', token);
         const decoded = JSON.parse(atob(token.split('.')[1]));
         setUsuario({
             id: decoded.id,
-            nome: decoded.nome || dadosUsuario.nome,
-            email: decoded.email || dadosUsuario.email,
+            nome: decoded.nome,
+            email: decoded.email, 
             token
         });
     }
 
     const logOut = async () => {
+        // localStorage.clear()
         localStorage.removeItem('token');
         setUsuario(null);
     };
