@@ -1,4 +1,4 @@
-import iconBox from '../../images/icon-caixa.svg';
+import iconBox from '/src/images/icon-caixa.svg';
 import './LogoProjeto.css';
 
 const LogoProjeto = () => {
@@ -7,7 +7,6 @@ const LogoProjeto = () => {
             <img src={iconBox} className='style-img' alt='Icon' />
             <h1 className='nome-projeto'>Estoque+</h1>
         </div>
-
     )
 }
 

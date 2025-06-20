@@ -6,10 +6,6 @@ import BtnLogin from '../BtnLogin/BtnLogin'
 import LogoProjeto from '../LogoProjeto/LogoProjeto';
 import './Header.css'
 import { useNavigate } from 'react-router';
-// import Button from '@mui/material/Button';
-// import Menu from '@mui/material/Menu';
-// import MenuItem from '@mui/material/MenuItem';
-import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
@@ -21,7 +17,8 @@ function Header() {
     const handleLogOut = () => {
         if (window.confirm('Tem certeza que deseja sair?')) {
             logOut();
-            navigate('/LoginUsuario', { replace: true });
+            navigate('/', { replace: true });
+            window.location.reload()
         }
     }
 

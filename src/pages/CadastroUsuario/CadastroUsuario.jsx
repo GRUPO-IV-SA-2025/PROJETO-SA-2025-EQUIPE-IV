@@ -5,6 +5,7 @@ import imgWorker from '/src/images/Checking boxes-amico.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import api from '../../services/api';
 
 function TelaCadastroUsuario() {
     const navigate = useNavigate();
@@ -13,7 +14,6 @@ function TelaCadastroUsuario() {
         empresa: '',
         nome: '',
         sobrenome: '',
-        cnpj: '',
         contato: '',
         email: '',
         senha: '',
@@ -24,7 +24,6 @@ function TelaCadastroUsuario() {
         empresa: false,
         nome: false,
         sobrenome: false,
-        cnpj: false,
         contato: false,
         email: false,
         senha: false,
@@ -55,7 +54,7 @@ function TelaCadastroUsuario() {
         }
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const novosErros = {};
         let hasError = false;
 
@@ -82,13 +81,22 @@ function TelaCadastroUsuario() {
 
         if (hasError) return;
 
-        localStorage.setItem('usuarioCadastrado', JSON.stringify({
-            email: formData.email,
-            senha: formData.senha
-        }));
+        try {
+            const response = await api.post('/cadastro', {
+                empresa: formData.empresa,
+                nome: formData.nome,
+                sobrenome: formData.sobrenome,
+                contato: formData.contato,
+                email: formData.email,
+                senha: formData.senha
+            });
 
-        alert('Cadastro realizado com sucesso!');
-        navigate('/login');
+            alert('Cadastro realizado com sucesso!');
+            navigate('/login');
+        } catch (error) {
+            console.error('Erro ao cadastrar:', error);
+            alert(error.response?.data?.message || 'Erro ao cadastrar usuário.');
+        }
     };
 
     const handleButtonClick = (e) => {
@@ -130,15 +138,15 @@ function TelaCadastroUsuario() {
                             slotProps={{
                                 input: {
                                     endAdornment: (
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={toggleMostrarSenha}
-                                            edge="end"
-                                        >
-                                            {mostrarSenha ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={toggleMostrarSenha}
+                                                edge="end"
+                                            >
+                                                {mostrarSenha ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
                                     )
                                 }
                             }}
@@ -157,16 +165,16 @@ function TelaCadastroUsuario() {
                             sx={{ mb: 1 }}
                             slotProps={{
                                 input: {
-                                    endAdornment : (
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={toggleMostrarConfirmarSenha}
-                                            edge="end"
-                                        >
-                                            {mostrarConfirmarSenha ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={toggleMostrarConfirmarSenha}
+                                                edge="end"
+                                            >
+                                                {mostrarConfirmarSenha ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
                                     )
                                 }
                             }}
