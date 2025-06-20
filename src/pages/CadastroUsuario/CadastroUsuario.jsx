@@ -91,8 +91,9 @@ function TelaCadastroUsuario() {
                 senha: formData.senha
             });
 
+            console.log(response);
             alert('Cadastro realizado com sucesso!');
-            navigate('/login');
+            navigate('/LoginUsuario');
         } catch (error) {
             console.error('Erro ao cadastrar:', error);
             alert(error.response?.data?.message || 'Erro ao cadastrar usuário.');

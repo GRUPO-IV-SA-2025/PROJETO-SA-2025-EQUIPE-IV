@@ -1,7 +1,7 @@
 import './LoginUsuario.css';
-import { Link, useNavigate } from 'react-router';
+import { Link, replace, useNavigate } from 'react-router';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Box, Button, Stack, TextField } from '@mui/material';
 import img from '/src/images/conceito-de-tecnologia-futurista.jpg';
 import { IconButton, InputAdornment } from '@mui/material';
@@ -16,8 +16,15 @@ function TelaLogin() {
     const [errors, setErrors] = useState({ email: false, senha: false });
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [carregando, setCarregando] = useState(false)
-    const { login } = useAuth();
+    const { login, usuarioLogado } = useAuth();
     const [mensagemErro, setMensagemErro] = useState(null);
+
+    useEffect(() => {
+        if (usuarioLogado) {
+            navigate('/Dashbboard', { replace: true })
+        }
+    }, [usuarioLogado, navigate]);
+
 
     const alteraVisibilidadeSenha = () => {
         setMostrarSenha(!mostrarSenha)
@@ -67,10 +74,13 @@ function TelaLogin() {
 
             login(token);
 
+            // const privateResponse = await api.get('/private');
+            // console.log('Sessão privada ativa:', privateResponse.data);
+
             navigate('/Dashboard');
 
         } catch (error) {
-            console.error('Erro de login:', error);
+            console.error('Erro de login/sessão:', error);
 
             if (error.response) {
                 if (error.response.status === 401) {

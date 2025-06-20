@@ -14,8 +14,8 @@ export const AuthProvider = ({ children }) => {
                 const decoded = JSON.parse(atob(token.split('.')[1]));
                 setUsuario({
                     id: decoded.id,
-                    nome: decoded.nome || dadosUsuario.nome,
-                    email: decoded.email || dadosUsuario.email,
+                    nome: decoded.nome,
+                    email: decoded.email,
                     token
                 });
             } catch (error) {
@@ -32,19 +32,25 @@ export const AuthProvider = ({ children }) => {
         setUsuario({
             id: decoded.id,
             nome: decoded.nome,
-            email: decoded.email, 
+            email: decoded.email,
             token
         });
     }
 
     const logOut = async () => {
-        // localStorage.clear()
         localStorage.removeItem('token');
+        navigate('/LoginUsuario');
         setUsuario(null);
     };
 
     return (
-        <AuthContext.Provider value={{ usuarioLogado: !!usuario, usuario, login, logOut, carregando }}>
+        <AuthContext.Provider value={{
+            usuarioLogado: !!usuario,
+            usuario,
+            login,
+            logOut,
+            carregando
+        }}>
             {children}
         </AuthContext.Provider>
     )

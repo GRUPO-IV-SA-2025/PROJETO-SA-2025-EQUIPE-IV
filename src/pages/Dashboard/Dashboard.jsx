@@ -7,9 +7,9 @@ import { BarPlot } from '@mui/x-charts/BarChart';
 import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
 import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
 import { BarLabel } from '@mui/x-charts';
-
-import { PieChart } from "@mui/x-charts";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
+import api from "../../services/api";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -18,6 +18,15 @@ function Dashboard() {
         e.preventDefault();
         navigate('/Financeiro')
     }
+
+    useEffect(() => {
+        api.get('/private').then(response => {
+            console.log("Sessão ativa:", response.data);
+        }).catch(() => {
+            logout();
+        });
+    }, []);
+
 
     return (
         <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>

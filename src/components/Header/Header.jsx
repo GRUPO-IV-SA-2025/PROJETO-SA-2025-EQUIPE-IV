@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Typography, Menu, MenuItem, Tooltip, IconButton, Avatar } from '@mui/material';
+import { Button, Typography, Menu, MenuItem, IconButton, Avatar } from '@mui/material';
 import { useAuth } from '../../contexts/AuthContext';
 import BtnCadastro from '../BtnCadastro/BtnCadastro'
 import BtnLogin from '../BtnLogin/BtnLogin'
@@ -7,28 +7,33 @@ import LogoProjeto from '../LogoProjeto/LogoProjeto';
 import './Header.css'
 import { useNavigate } from 'react-router';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
 
 
 function Header() {
-    const { usuarioLogado, logOut } = useAuth();
-    const navigate = useNavigate();
-
-    const handleLogOut = () => {
-        if (window.confirm('Tem certeza que deseja sair?')) {
-            logOut();
-            navigate('/', { replace: true });
-            window.location.reload()
-        }
-    }
-
     const [anchorUsuario, setAnchorUsuario] = React.useState(null)
     const [anchorEstoque, setAnchorEstoque] = React.useState(null)
     const [anchorEmpresa, setAnchorEmpresa] = React.useState(null)
     const openUsuario = Boolean(anchorUsuario)
     const openEstoque = Boolean(anchorEstoque)
     const openEmpresa = Boolean(anchorEmpresa)
+    const { usuarioLogado, logOut } = useAuth();
+    const navigate = useNavigate();
+    const [openLogoutDialog, setOpenLogoutDialog] = React.useState(false);
 
+    const handleLogOut = () => {
+        setOpenLogoutDialog(false);
+        logOut();
+        window.location.reload();
+    }
+
+    const handleOpenLogOutDialog = () => {
+        setOpenLogoutDialog(true);
+    }
 
     const handleClickEstoque = (e) => {
         setAnchorEstoque(e.currentTarget)
@@ -77,7 +82,6 @@ function Header() {
             <LogoProjeto />
             <div className='container-btns-header'>
                 {usuarioLogado ? (
-                    // <div className='teste'>
                     <>
                         <Typography onClick={handleClickPaginaInicial} sx={{
                             display: 'flex', alignItems: 'center', padding: '15px', cursor: 'pointer',
@@ -190,8 +194,10 @@ function Header() {
                         </Menu>
 
 
-                        <IconButton onClick={handleClickUsuario} sx={{ paddingLeft: '5'}}>
-                            <Avatar sx={{ backgroundColor: '#1976d2' }}>I</Avatar>
+                        <IconButton onClick={handleClickUsuario} sx={{ paddingLeft: '5' }}>
+                            <Avatar sx={{ backgroundColor: '#1976d2' }}>
+                                {/* {(perfil?.nome ? perfil.nome[0].toUpperCase() : 'U')} */}
+                            </Avatar>
                         </IconButton>
 
                         <Menu
@@ -201,10 +207,15 @@ function Header() {
                         >
                             <MenuItem onClick={handleClickPerfil}>
                                 <Avatar sx={{ width: 24, height: 24, mr: 1, backgroundColor: '#1976d2' }} />
-                                My account
+                                Minha conta
                             </MenuItem>
 
-                            <MenuItem onClick={() => { handleCloseUsuario(); handleLogOut(); }}>Sair</MenuItem>
+                            <MenuItem
+                                sx={{ alignItems: 'center', justifyContent: 'center' }}
+                                onClick={() => { handleCloseUsuario(); handleOpenLogOutDialog(); }}
+                            >
+                                Sair
+                            </MenuItem>
                         </Menu>
                     </>
                     // </div>
@@ -215,6 +226,47 @@ function Header() {
                     </>
                 )}
             </div>
+            {/* Dialog de confirmação de logout */}
+            <Dialog
+                open={openLogoutDialog}
+                onClose={() => setOpenLogoutDialog(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                slotProps={{
+                    sx: {
+                        borderRadius: 3,
+                        padding: 2,
+                        minWidth: '400px'
+                    }
+                }}
+            >
+                <DialogTitle id="alert-dialog-title" sx={{ fontWeight: 'bold' }}>
+                    Confirmar saída
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Tem certeza que deseja sair da sua conta?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        onClick={() => setOpenLogoutDialog(false)}
+                        variant="outlined"
+                        sx={{ borderRadius: 2 }}
+                    >
+                        Cancelar
+                    </Button>
+                    <Button
+                        onClick={handleLogOut}
+                        color="error"
+                        variant="contained"
+                        autoFocus
+                        sx={{ borderRadius: 2 }}
+                    >
+                        Sair
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }

@@ -6,40 +6,69 @@ import Perfil from "../pages/Perfil/Perfil"
 
 import TelaLogin from "../pages/LoginUsuario/LoginUsuario"
 import TelaCadastroUsuario from "../pages/CadastroUsuario/CadastroUsuario"
-import Estoque from "../pages/Estoque/Estoque"    
+import Estoque from "../pages/Estoque/Estoque"
+import { useAuth } from "../contexts/AuthContext";
+import { Navigate } from "react-router";
+
+const RotaLogin = () => {
+    const { usuarioLogado } = useAuth();
+    if (usuarioLogado) return <Navigate to="/Dashboard" replace />
+    return <TelaLogin />;
+}
+
+const RotaRaiz = () => {
+    const { usuarioLogado } = useAuth();
+    if (usuarioLogado) return <Navigate to="/Dashboard" replace />
+    return <App />;
+}
+
+const RotaProtegida = ({ children }) => {
+    const { usuarioLogado, carregando } = useAuth();
+
+    if (carregando) {
+        return <div>Carregando...</div>
+    }
+
+    if (!usuarioLogado) {
+        localStorage.removeItem('token');
+        return <Navigate to="/LoginUsuario" replace />;
+    }
+
+    return children;
+}
 
 const rotas = [
     {
         path: '/',
-        element: <App /> 
+        element: <RotaRaiz />
     },
     {
         path: '/LoginUsuario',
-        element: <TelaLogin /> 
+        element: <RotaLogin />
     },
     {
         path: '/CadastroUsuario',
-        element: <TelaCadastroUsuario /> 
+        element: <TelaCadastroUsuario />
     },
     {
         path: '/Dashboard',
-        element: <Dashboard />
+        element: <RotaProtegida><Dashboard /></RotaProtegida>
     },
     {
         path: '/Financeiro',
-        element: <Financeiro />
+        element: <RotaProtegida><Financeiro /></RotaProtegida>
     },
     {
         path: '/Estoque',
-        element: <Estoque />
+        element: <RotaProtegida><Estoque /></RotaProtegida>
     },
     {
         path: '/Perfil',
-        element: <Perfil />
+        element: <RotaProtegida><Perfil /></RotaProtegida>
     },
     {
         path: '/Produtos',
-        element: <Produtos />
+        element: <RotaProtegida><Produtos /></RotaProtegida>
     }
 ]
 
