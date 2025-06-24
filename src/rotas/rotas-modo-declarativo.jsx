@@ -7,6 +7,7 @@ import Perfil from "../pages/Perfil/Perfil"
 import TelaLogin from "../pages/LoginUsuario/LoginUsuario"
 import TelaCadastroUsuario from "../pages/CadastroUsuario/CadastroUsuario"
 import Estoque from "../pages/Estoque/Estoque"    
+import Sobre from "../pages/Sobre/Sobre";
 
 const rotas = [
     {
@@ -40,6 +41,10 @@ const rotas = [
     {
         path: '/Produtos',
         element: <Produtos />
+    },
+    {
+        path: '/Sobre',
+        element: <Sobre />
     }
 ]
 
