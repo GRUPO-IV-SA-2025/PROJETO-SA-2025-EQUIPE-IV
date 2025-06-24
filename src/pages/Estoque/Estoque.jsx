@@ -45,12 +45,12 @@ function Estoque() {
             data: "00/00/00",
             entrada: 0,
             precoVenda: 0,
-            precoCompra: 0,
+            // precoCompra: 0,
         }
 
         setProdutos((prev) => [...prev, novoProduto]);
 
-        cancelarInclusao(); // depois que salva fecha o card
+        cancelarInclusao();
     }
 
     const removerProduto = (index) => {

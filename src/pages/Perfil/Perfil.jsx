@@ -5,6 +5,8 @@ import useProtectedData from "../../hooks/useProtectedData";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import api from "../../services/api";
+import { AlertCustomizado } from "../../components/AlertCustomizado";
+
 
 function Perfil() {
     const { usuario, usuarioLogado } = useAuth();
@@ -12,6 +14,20 @@ function Perfil() {
     const [dadosEditados, setDadosEditados] = useState(null);
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const navigate = useNavigate();
+
+    const [alertState, setAlertState] = useState({
+        open: false,
+        message: '',
+        severity: 'success'
+    });
+
+    const showAlert = (message, severity = 'success') => {
+        setAlertState({
+            open: true,
+            message,
+            severity
+        });
+    };
 
     const {
         dados: perfil,
@@ -29,10 +45,11 @@ function Perfil() {
             console.log('Dados sendo enviados:', dadosEditados);
             await api.patch(`/usuarios/${usuario.id}`, dadosEditados);
             setEmEdicao(false);
-            alert("Perfil atualizado com sucesso");
+            showAlert('Perfil atualizado com sucesso!');
+
         } catch (error) {
             console.error('Erro ao salvar:', error);
-            alert("Erro ao atualizar o perfil:")
+            showAlert('Erro ao atualizar perfil!', 'error');
         }
     }
 
@@ -111,7 +128,26 @@ function Perfil() {
                                 readOnly: !emEdicao
                             }
                         }}
-                        sx={{ width: '750px' }}
+                        sx={{
+                            width: '750px',
+                            backgroundColor: 'white',
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: '#003049',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#003049',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#003049',
+                                },
+                            },
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.1rem',
+                                fontWeight: 'bold',
+                                padding: '14px',
+                            },
+                        }}
                         variant="outlined"
                     />
 
@@ -125,7 +161,26 @@ function Perfil() {
                                 readOnly: !emEdicao
                             }
                         }}
-                        sx={{ width: '750px' }}
+                        sx={{
+                            width: '750px',
+                            backgroundColor: 'white', // Fundo branco
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: '#003049', // Cor da borda
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#003049',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#003049',
+                                },
+                            },
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.1rem',
+                                fontWeight: 'bold',
+                                padding: '14px',
+                            },
+                        }}
                         variant="outlined"
                     />
 
@@ -139,7 +194,26 @@ function Perfil() {
                                 readOnly: !emEdicao
                             }
                         }}
-                        sx={{ width: '750px' }}
+                        sx={{
+                            width: '750px',
+                            backgroundColor: 'white',
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: '#003049',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#003049',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#003049',
+                                },
+                            },
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.1rem',
+                                fontWeight: 'bold',
+                                padding: '14px',
+                            },
+                        }}
                         variant="outlined"
                     />
                     {/* Campo: Contato */}
@@ -152,7 +226,26 @@ function Perfil() {
                                 readOnly: !emEdicao
                             }
                         }}
-                        sx={{ width: '750px' }}
+                        sx={{
+                            width: '750px',
+                            backgroundColor: 'white',
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: '#003049',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#003049',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#003049',
+                                },
+                            },
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.1rem',
+                                fontWeight: 'bold',
+                                padding: '14px',
+                            },
+                        }}
                         variant="outlined"
                     />
 
@@ -166,7 +259,26 @@ function Perfil() {
                                 readOnly: !emEdicao
                             }
                         }}
-                        sx={{ width: '750px' }}
+                        sx={{
+                            width: '750px',
+                            backgroundColor: 'white',
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: '#003049',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#003049',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#003049',
+                                },
+                            },
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.1rem',
+                                fontWeight: 'bold',
+                                padding: '14px',
+                            },
+                        }}
                         variant="outlined"
                     />
                 </Box>
@@ -238,6 +350,12 @@ function Perfil() {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <AlertCustomizado
+                open={alertState.open}
+                onClose={() => setAlertState({ ...alertState, open: false })}
+                message={alertState.message}
+                severity={alertState.severity}
+            />
         </Box>
     )
 }
