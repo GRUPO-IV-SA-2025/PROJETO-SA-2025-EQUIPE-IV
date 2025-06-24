@@ -4,6 +4,8 @@ import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, T
 
 function Produtos1() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpenCategoria, setIsDialogOpenCategoria] = useState(false);
+
   const [produtos, setProdutos] = useState([
     { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
     { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
@@ -12,13 +14,21 @@ function Produtos1() {
     { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
     { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' }
   ]);
-
+  
   const [novoProduto, setNovoProduto] = useState({
     descricao: '',
     codigo: '',
     categoria: ''
   });
+  
+  const [categoria, setCategoria] = useState([
+    {descricao: ''}
+  ])
 
+  const [novaCategoria, setNovaCategoria] = useState({
+    descricao: ''
+  });
+  
   const abrirDialog = () => setIsDialogOpen(true);
   const fecharDialog = () => {
     setIsDialogOpen(false);
@@ -29,11 +39,26 @@ function Produtos1() {
     const { name, value } = e.target;
     setNovoProduto((prev) => ({ ...prev, [name]: value }));
   };
-
   const cadastrarProduto = () => {
     setProdutos((prev) => [...prev, novoProduto]);
     fecharDialog();
   };
+
+  const abrirDialogCategoria = () => setIsDialogOpenCategoria(true);
+  const fecharDialogCategoria = () => {
+    setIsDialogOpenCategoria(false);
+    setNovaCategoria({ descricao: ''})
+  }
+
+  const handleChangeCategoria = (e) => {
+    const { name, value } = e.target;
+    setNovaCategoria((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const cadastrarCategoria = () => {
+    setCategoria((prev) => [...prev, novaCategoria]);
+    fecharDialogCategoria();
+  }
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -90,9 +115,25 @@ function Produtos1() {
             </Box>
           </Stack>
         </DialogContent>
+        <Box sx={{display: 'flex', justifyContent: 'flex-end', px: 3, pb: 0}}>
+          <Button onClick={abrirDialogCategoria} variant="contained" sx={{ backgroundColor: '#004468' }}>Cadastrar Categoria</Button>
+        </Box>
         <DialogActions sx={{ px: 3, pb: 2 }}>
           <Button onClick={fecharDialog} variant="outlined" color="primary">Cancelar</Button>
           <Button onClick={cadastrarProduto} variant="contained" sx={{ backgroundColor: '#004468' }}>Cadastrar</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={isDialogOpenCategoria} onClose={fecharDialogCategoria}>
+        <DialogTitle sx={{ fontWeight: 'bold', color: '#004468', fontSize: '30px' }}>Nova categoria</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <TextField label="Descrição" name="descricao-categoria"  onChange={handleChangeCategoria} fullWidth />
+          </Stack>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button onClick={fecharDialogCategoria} variant="outlined" color="primary">Cancelar</Button>
+          <Button onClick={cadastrarCategoria} variant="contained" sx={{ backgroundColor: '#004468' }}>Cadastrar</Button>
         </DialogActions>
       </Dialog>
     </Box>
