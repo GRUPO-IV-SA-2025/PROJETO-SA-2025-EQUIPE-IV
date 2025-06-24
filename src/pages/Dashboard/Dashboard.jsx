@@ -27,6 +27,15 @@ function Dashboard() {
         });
     }, []);
 
+    const handleClickPaginaEstoque = (e) => {
+        e.preventDefault();
+        navigate('/Estoque')
+    }
+
+    const handleClickProdutos = (e) => {
+        e.preventDefault();
+        navigate('/Produtos')
+    }
 
     return (
         <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
@@ -111,8 +120,8 @@ function Dashboard() {
                 </Box>
 
                 <Stack direction="row" spacing={30} justifyContent="center">
-                    <button variant="contained" className="btn-home">Estoque</button>
-                    <button variant="contained" className="btn-home">Produtos</button>
+                    <button variant="contained" className="btn-home" onClick={handleClickPaginaEstoque}>Estoque</button>
+                    <button variant="contained" className="btn-home" onClick={handleClickProdutos}>Produtos</button>
                     <button variant="contained" className="btn-home" onClick={handleFinanceiroClick}>Financeiro</button>
                 </Stack>
             </Box>
