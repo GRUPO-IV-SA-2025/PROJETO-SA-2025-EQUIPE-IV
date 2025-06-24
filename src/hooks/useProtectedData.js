@@ -15,7 +15,7 @@ const useProtectedData = (endpoint) => {
                     }
                 });
 
-                console.log('Resposta da API:', response.data);
+                // console.log('Resposta da API:', response.data);
 
                 setdata(response.data);
 

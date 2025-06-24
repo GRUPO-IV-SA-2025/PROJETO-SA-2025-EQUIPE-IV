@@ -9,6 +9,7 @@ import TelaCadastroUsuario from "../pages/CadastroUsuario/CadastroUsuario"
 import Estoque from "../pages/Estoque/Estoque"
 import { useAuth } from "../contexts/AuthContext";
 import { Navigate } from "react-router";
+import Sobre from "../pages/Sobre/Sobre";
 
 const RotaLogin = () => {
     const { usuarioLogado } = useAuth();
@@ -69,6 +70,10 @@ const rotas = [
     {
         path: '/Produtos',
         element: <RotaProtegida><Produtos /></RotaProtegida>
+    },
+    {
+        path: '/Sobre',
+        element: <RotaProtegida><Sobre /></RotaProtegida>
     }
 ]
 

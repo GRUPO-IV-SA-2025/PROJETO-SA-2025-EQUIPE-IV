@@ -8,16 +8,8 @@ import imgEstoque from '../../images/mulher-de-tiro-medio-com-tablet.jpg'
 import imgRelatorio from '../../images/close-up-homem-de-negocios-escrevendo-um-resumo.jpg'
 import imgFluxoCaixa from '../../images/documento-de-remessa-pagina-inicial-da-conexao-laptop.jpg'
 
-// const cardSharedStyles = {
-//     height: '280px',
-//     width: '250px',
-//     display: 'flex',
-//     justifyContent: 'center',
-//     alignItems: 'center'
-// }
-
-
 function HomeContent() {
+
     return (
         <div className="container-body">
             <div className='titulo-texto-imagem'>

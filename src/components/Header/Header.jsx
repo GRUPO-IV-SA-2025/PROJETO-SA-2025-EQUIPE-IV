@@ -14,6 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 
 
+
 function Header() {
     const [anchorUsuario, setAnchorUsuario] = React.useState(null)
     const [anchorEstoque, setAnchorEstoque] = React.useState(null)
@@ -22,13 +23,16 @@ function Header() {
     const openEstoque = Boolean(anchorEstoque)
     const openEmpresa = Boolean(anchorEmpresa)
     const { usuarioLogado, logOut } = useAuth();
+    const [emEdicao, setEmEdicao] = React.useState();
     const navigate = useNavigate();
     const [openLogoutDialog, setOpenLogoutDialog] = React.useState(false);
 
+
     const handleLogOut = () => {
         setOpenLogoutDialog(false);
-        logOut();
+        navigate('/LoginUsuario');
         window.location.reload();
+        logOut();
     }
 
     const handleOpenLogOutDialog = () => {

@@ -1,4 +1,11 @@
-import { Box, Button, IconButton, Stack, TextField, InputAdornment } from '@mui/material';
+import {
+    Box,
+    Button,
+    IconButton,
+    Stack,
+    TextField, InputAdornment,
+    Link
+} from '@mui/material';
 import './CadastroUsuario.css';
 import LogoProjeto from '../../components/LogoProjeto/LogoProjeto';
 import imgWorker from '/src/images/Checking boxes-amico.svg';
@@ -6,6 +13,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import api from '../../services/api';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
+
 
 function TelaCadastroUsuario() {
     const navigate = useNavigate();
@@ -106,6 +116,26 @@ function TelaCadastroUsuario() {
 
     return (
         <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
+            <Box sx={{
+                position: 'absolute',
+                top: 20,
+                left: 20,
+                zIndex: 1
+            }}>
+                <IconButton
+                    component={Link}
+                    onClick={() => navigate(-1)}
+                    sx={{
+                        color: 'white',
+                        backgroundColor: 'rgba(0,0,0,0.2)',
+                        '&:hover': {
+                            backgroundColor: 'rgba(0,0,0,0.4)'
+                        }
+                    }}
+                >
+                    <ArrowBackIcon fontSize="large" />
+                </IconButton>
+            </Box>
             <Box sx={{ width: '50%', backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Stack spacing={2} sx={{ width: '50%', alignItems: 'center' }}>
                     <LogoProjeto />
