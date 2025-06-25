@@ -28,15 +28,6 @@ function Estoque() {
 
 
     function incluirProduto() {
-        // implementa a lógica para incluir o produto no estoque
-        // console.log({
-        //     tipo,
-        //     quantidade,
-        //     precoCompra,
-        //     precoCusto,
-        //     produtoSelecionado
-        // });
-
         const novoProduto = {
             tipo,
             quantidade: Number(quantidade),
@@ -59,12 +50,9 @@ function Estoque() {
 
     return (
 
-        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-
+        <Box sx={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F0FAFF' }}>
             <Header />
-
-
-            <Box sx={{ height: "100%", width: '100%', backgroundColor: 'white', marginTop: "85px" }}>
+            <Box sx={{ height: "100%", width: '100%', marginTop: "85px" }}>
                 <Box sx={{ marginTop: "35px", marginLeft: "35px", marginRight: "35px", display: 'flex', justifyContent: 'space-between' }}>
                     <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>
                         Estoque
@@ -226,36 +214,8 @@ function Estoque() {
 
                 </Box>
             )}
-
         </Box>
-
-
     )
 }
-{/* <Box sx={{ display: 'flex', minWidth: '100%' }}> */ }
-// {/* <Box sx={{ marginTop: '20px' }}> */}
-{/* <Box sx={{ display: 'flex', justifyContent: 'space-evenly', backgroundColor: 'grey', minWidth: '70%' }}>
-        <Typography gutterBottom sx={{ color: "#004468", }}>
-            Data
-        </Typography>
-        <Typography gutterBottom sx={{ color: "#004468", }}>
-            Entrada
-        </Typography>
-        <Typography gutterBottom sx={{ color: "#004468", }}>
-            Saída
-        </Typography>
-        <Typography gutterBottom sx={{ color: "#004468", }}>
-            Preço de venda
-        </Typography>
-        <Typography gutterBottom sx={{ color: "#004468", }}>
-            Preço de compra
-        </Typography>
-        <Typography gutterBottom sx={{ color: "#004468", }}>
-            Preço de custo
-        </Typography>
-    </Box> */}
-
-
-
 
 export default Estoque;

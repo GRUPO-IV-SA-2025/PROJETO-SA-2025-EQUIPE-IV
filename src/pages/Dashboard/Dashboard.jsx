@@ -10,9 +10,11 @@ import { BarLabel } from '@mui/x-charts';
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import api from "../../services/api";
+import { useAuth } from "../../contexts/AuthContext";
 
 function Dashboard() {
     const navigate = useNavigate();
+    const { LogOut } = useAuth();''
 
     const handleFinanceiroClick = (e) => {
         e.preventDefault();
@@ -23,7 +25,7 @@ function Dashboard() {
         api.get('/private').then(response => {
             console.log("Sessão ativa:", response.data);
         }).catch(() => {
-            logout();
+            LogOut();
         });
     }, []);
 
@@ -38,11 +40,11 @@ function Dashboard() {
     }
 
     return (
-        <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
+        <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex', backgroundColor: '#F0FAFF' }}>
 
             <Header />
 
-            <Box sx={{ width: '100%', backgroundColor: 'white', marginTop: "85px" }}>
+            <Box sx={{ width: '100%', marginTop: "85px" }}>
                 <Box sx={{ marginTop: "35px", marginLeft: "35px" }}>
                     <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>
                         Dashboard

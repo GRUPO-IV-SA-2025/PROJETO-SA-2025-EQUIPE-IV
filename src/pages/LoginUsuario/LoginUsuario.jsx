@@ -9,6 +9,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../services/api';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { AlertCustomizado } from '../../components/AlertCustomizado';
 
 function TelaLogin() {
     const navigate = useNavigate();
@@ -200,6 +201,9 @@ function TelaLogin() {
                     </Stack>
                 </Stack>
             </Box>
+            <AlertCustomizado 
+            
+            />
         </Box>
     )
 }

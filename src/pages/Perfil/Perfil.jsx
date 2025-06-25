@@ -112,11 +112,6 @@ function Perfil() {
             </Box>
 
             <Box sx={{ width: '72%', display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', paddingTop: 15, paddingLeft: 10 }}>
-
-                {/* <Box sx={{ gap: "30px" }}>
-                    <Typography variant="h2" sx={{ color: 'black' }}>Dados da Empresa</Typography>
-                </Box> */}
-
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
                     {/* Campo: Nome da Empresa */}
                     <Typography variant="h5" sx={{ paddingTop: 8 }}>Nome da Empresa</Typography>
