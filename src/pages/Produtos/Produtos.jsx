@@ -30,18 +30,10 @@ function Produtos1() {
       });
   }, []);
 
-  const [produtos, setProdutos] = useState([
-    // { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
-    // { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
-    // { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
-    // { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
-    // { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' },
-    // { codigo: '123456', descricao: 'Produto', categoria: 'Mercadoria para revenda' }
-  ]);
+  const [produtos, setProdutos] = useState([]);
 
   const [novoProduto, setNovoProduto] = useState({
     descricao: '',
-    codigo: '',
     categoria: ''
   });
 
@@ -79,11 +71,8 @@ function Produtos1() {
 
   const editarProduto = async () => {
     try {
-      // const token = localStorage.getItem('token');
-
       const response = await axios.patch(`http://localhost:3000/produtos/${produtoEditar.id}`, {
         descricao: novoProduto.descricao,
-        codigo: novoProduto.codigo,
         categorias_id: novoProduto.categoria
       });
 
@@ -113,6 +102,8 @@ function Produtos1() {
 
   const abrirDialog = () => {
     setNovoProduto({ descricao: '', codigo: '', categoria: '' });
+
+    setProdutoEditar(null)
     setIsDialogOpen(true);
   }
 
@@ -125,35 +116,12 @@ function Produtos1() {
     const { name, value } = e.target;
     setNovoProduto((prev) => ({ ...prev, [name]: value }));
   };
-  // const cadastrarProduto = () => {
-  //   setProdutos((prev) => [...prev, novoProduto]);
-  //   fecharDialog();
-  // };
-
-  // const cadastrarProduto = () => {
-  //   const produtoParaEnviar = {
-  //     descricao: novoProduto.descricao,
-  //     codigo: novoProduto.codigo,
-  //     categorias_id: novoProduto.categoria // Substitua por um ID real da categoria (ou ajuste conforme seu backend)
-  //   };
-
-  //   axios.post("http://localhost:3000/produtos", produtoParaEnviar)
-  //     .then((response) => {
-  //       setProdutos((prev) => [...prev, response.data]); // Atualiza a lista com o que voltou do backend
-  //       fecharDialog(); // Fecha o diálogo
-  //     })
-  //     .catch((error) => {
-  //       console.error("Erro ao cadastrar produto:", error);
-  //       alert("Erro ao cadastrar produto. Veja o console.");
-  //     });
-  // };
 
   const cadastrarProduto = async () => {
     try {
       const response = await axios.post("http://localhost:3000/produtos", {
         descricao: novoProduto.descricao,
-        codigo: novoProduto.codigo,
-        categorias_id: novoProduto.categoria // Envia o ID da categoria
+        categorias_id: novoProduto.categoria
       });
 
       setProdutos(prev => [...prev, response.data]);
@@ -219,7 +187,7 @@ function Produtos1() {
               {produtos.map((produto, index) => (
                 <TableRow key={produto.id}>
                   <TableCell>{produto.descricao}</TableCell>
-                  <TableCell>{produto.codigo}</TableCell>
+                  <TableCell>{produto.id}</TableCell>
                   <TableCell>{produto.categoria}</TableCell>
                   <TableCell align="right">
                     <Stack direction="row" spacing={1} justifyContent="flex-end">
@@ -244,8 +212,7 @@ function Produtos1() {
           <Stack spacing={2} sx={{ mt: 1 }}>
             <TextField label="Descrição" name="descricao" value={novoProduto.descricao} onChange={handleChange} fullWidth />
             <Box sx={{ display: 'flex', gap: 2 }}>
-              <TextField label="Código" name="codigo" value={novoProduto.codigo} onChange={handleChange} fullWidth />
-              {/* <TextField label="Categoria" name="categoria" value={novoProduto.categoria} onChange={handleChange} fullWidth /> */}
+              {/* <TextField label="Código" name="codigo" value={novoProduto.codigo} onChange={handleChange} fullWidth /> */}
               <TextField
                 select
                 label="Categoria"
@@ -291,8 +258,7 @@ function Produtos1() {
           <Stack spacing={2} sx={{ mt: 1 }}>
             <TextField label="Descrição" name="descricao" value={novoProduto.descricao} onChange={handleChange} fullWidth />
             <Box sx={{ display: 'flex', gap: 2 }}>
-              <TextField label="Código" name="codigo" value={novoProduto.codigo} onChange={handleChange} fullWidth />
-              {/* <TextField label="Categoria" name="categoria" value={novoProduto.categoria} onChange={handleChange} fullWidth /> */}
+              <TextField label="Código" name="codigo" disabled onChange={handleChange} fullWidth />
               <TextField
                 select
                 label="Categoria"
