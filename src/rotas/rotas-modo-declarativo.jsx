@@ -10,6 +10,7 @@ import Estoque from "../pages/Estoque/Estoque"
 import { useAuth } from "../contexts/AuthContext";
 import { Navigate } from "react-router";
 import Sobre from "../pages/Sobre/Sobre";
+import Categoria from "../pages/Categoria/Categoria"
 
 const RotaLogin = () => {
     const { usuarioLogado } = useAuth();
@@ -70,6 +71,10 @@ const rotas = [
     {
         path: '/Produtos',
         element: <RotaProtegida><Produtos /></RotaProtegida>
+    },
+    {
+        path: '/Categoria',
+        element: <RotaProtegida><Categoria /></RotaProtegida>
     },
     {
         path: '/Sobre',

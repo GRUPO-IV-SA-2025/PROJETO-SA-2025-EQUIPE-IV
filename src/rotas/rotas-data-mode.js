@@ -5,6 +5,7 @@ import Dashboard from "../telas/Dashboard/Dashboard"
 import Financeiro from "../pages/Financeiro/Financeiro";
 import Perfil from "../pages/Perfil/Perfil"
 import Sobre from "../pages/Sobre/Sobre"
+import Categoria from "../pages/Categoria/Categoria"
 
 const rotas = [
     {
@@ -30,6 +31,10 @@ const rotas = [
     {
         path: '/pages/Perfil',
         Component: <Perfil />
+    },
+    {
+        path: '/pages/Categoria',
+        Component: <Categoria />
     },
     {
         path: '/pages/Sobre',

@@ -1,18 +1,26 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Stack, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Select, MenuItem } from "@mui/material";
-import axios from "axios";
+import { Navigate, useNavigate } from "react-router";
+import api from "../../services/api";
 
 
 function Produtos1() {
+   const navigate = useNavigate();
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDialogOpenCategoria, setIsDialogOpenCategoria] = useState(false);
   const [isDialogOpenEditar, setIsDialogOpenEditar] = useState(false);
   const [isDialogOpenDeletar, setIsDialogOpenDeletar] = useState(false);
 
+      const handleClickCategoria = (e) => {
+        e.preventDefault();
+        navigate('/Categoria')
+    }
+
 
   useEffect(() => {
-    axios.get('http://localhost:3000/categorias')
+    api.get('/categorias')
       .then(res => {
         console.log("Categorias recebidas:", res.data); // Veja isso no console
         setCategoria(res.data)
@@ -21,7 +29,7 @@ function Produtos1() {
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/produtos")
+    api.get("/produtos")
       .then(response => {
         setProdutos(response.data);
       })
@@ -41,9 +49,9 @@ function Produtos1() {
     { descricao: '' }
   ])
 
-  const [novaCategoria, setNovaCategoria] = useState({
-    descricao: ''
-  });
+  // const [novaCategoria, setNovaCategoria] = useState({
+  //   descricao: ''
+  // });
 
   const [produtoEditar, setProdutoEditar] = useState(null)
 
@@ -59,7 +67,7 @@ function Produtos1() {
     setProdutoEditar(produto);
     setNovoProduto({
       descricao: produto.descricao,
-      codigo: produto.codigo,
+      // codigo: produto.id,
       categoria: produto.categorias_id
       // categoria: categoria.find(c => c.descricao === produto.categoria)?.id || ''
     });
@@ -71,7 +79,7 @@ function Produtos1() {
 
   const editarProduto = async () => {
     try {
-      const response = await axios.patch(`http://localhost:3000/produtos/${produtoEditar.id}`, {
+      const response = await api.patch(`/produtos/${produtoEditar.id}`, {
         descricao: novoProduto.descricao,
         categorias_id: novoProduto.categoria
       });
@@ -93,7 +101,7 @@ function Produtos1() {
 
   const excluirProduto = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/produtos/${id}`);
+      await api.delete(`/produtos/${id}`);
       setProdutos((prev) => prev.filter(p => p.id !== id));
     } catch (error) {
       console.error("Erro ao excluir produto:", error);
@@ -118,8 +126,9 @@ function Produtos1() {
   };
 
   const cadastrarProduto = async () => {
+    console.log(novoProduto)
     try {
-      const response = await axios.post("http://localhost:3000/produtos", {
+      const response = await api.post('/produtos', {
         descricao: novoProduto.descricao,
         categorias_id: novoProduto.categoria
       });
@@ -142,22 +151,22 @@ function Produtos1() {
     setNovaCategoria((prev) => ({ ...prev, [name]: value }));
   };
 
-  const cadastrarCategoria = async () => {
-    try {
-      const response = await axios.post("http://localhost:3000/categorias", {
-        descricao: novaCategoria.descricao
-      })
-      setCategoria((prev) => [...prev, response.data]);
-      setNovaCategoria({ descricao: '' });
-      fecharDialogCategoria();
-    } catch (error) {
-      console.error("Erro ao cadastrar nova categoria: ", error)
-    }
-    //  const novaComId = {
-    //   ...novaCategoria,
-    //   id: categoria.length + 1 // Simples id incremental
-    // };
-  }
+  // const cadastrarCategoria = async () => {
+  //   try {
+  //     const response = await api.post("/categorias", {
+  //       descricao: novaCategoria.descricao
+  //     })
+  //     setCategoria((prev) => [...prev, response.data]);
+  //     setNovaCategoria({ descricao: '' });
+  //     fecharDialogCategoria();
+  //   } catch (error) {
+  //     console.error("Erro ao cadastrar nova categoria: ", error)
+  //   }
+  //   //  const novaComId = {
+  //   //   ...novaCategoria,
+  //   //   id: categoria.length + 1 // Simples id incremental
+  //   // };
+  // }
 
   return (
     <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -231,24 +240,11 @@ function Produtos1() {
           </Stack>
         </DialogContent>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 3, pb: 0 }}>
-          <Button onClick={abrirDialogCategoria} variant="contained" sx={{ backgroundColor: '#004468' }}>Cadastrar Categoria</Button>
+          <Button onClick={handleClickCategoria} variant="contained" sx={{ backgroundColor: '#004468' }}>Cadastrar nova Categoria</Button>
         </Box>
-        <DialogActions sx={{ px: 3, pb: 2 }}>
+        <DialogActions sx={{ px:4, pb: 2 }}>
           <Button onClick={fecharDialog} variant="outlined" color="primary">Cancelar</Button>
           <Button onClick={cadastrarProduto} variant="contained" sx={{ backgroundColor: '#004468' }}>Cadastrar</Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog open={isDialogOpenCategoria} onClose={fecharDialogCategoria}>
-        <DialogTitle sx={{ fontWeight: 'bold', color: '#004468', fontSize: '30px' }}>Nova categoria</DialogTitle>
-        <DialogContent>
-          <Stack spacing={2} sx={{ mt: 1 }}>
-            <TextField label="Descrição" name="descricao" value={novaCategoria.descricao} onChange={handleChangeCategoria} fullWidth />
-          </Stack>
-        </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2 }}>
-          <Button onClick={fecharDialogCategoria} variant="outlined" color="primary">Cancelar</Button>
-          <Button onClick={cadastrarCategoria} variant="contained" sx={{ backgroundColor: '#004468' }}>Cadastrar</Button>
         </DialogActions>
       </Dialog>
 
