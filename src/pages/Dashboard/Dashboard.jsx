@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Button, Typography, Paper, TextField } from "@mui/material";
+import { Box, Grid, Stack, Typography, Paper } from "@mui/material";
 import Header from '../../components/Header/Header';
 import './Dashboard.css';
 import { LineChart } from '@mui/x-charts/LineChart';
@@ -7,8 +7,6 @@ import { BarPlot } from '@mui/x-charts/BarChart';
 import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
 import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
 import { BarLabel } from '@mui/x-charts';
-
-import { PieChart } from "@mui/x-charts";
 import { useNavigate } from "react-router";
 
 function Dashboard() {
@@ -17,6 +15,16 @@ function Dashboard() {
     const handleFinanceiroClick = (e) => {
         e.preventDefault();
         navigate('/Financeiro')
+    }
+
+    const handleClickPaginaEstoque = (e) => {
+        e.preventDefault();
+        navigate('/Estoque')
+    }
+
+    const handleClickProdutos = (e) => {
+        e.preventDefault();
+        navigate('/Produtos')
     }
 
     return (
@@ -80,30 +88,14 @@ function Dashboard() {
                                         <ChartsXAxis />
                                         <ChartsYAxis />
                                     </ChartContainer>
-
-                                    {/* <PieChart
-                                        series={[
-                                            {
-                                                data: [
-                                                    { id: 0, value: 10, label: 'series A' },
-                                                    { id: 1, value: 15, label: 'series B' },
-                                                    { id: 2, value: 20, label: 'series C' },
-                                                ],
-                                            },
-                                        ]}
-                                        height={300}
-                                        width={500}
-                                    /> */}
                                 </Box>
                             </Paper>
                         </Grid>
                     </Grid>
-
                 </Box>
-
                 <Stack direction="row" spacing={30} justifyContent="center">
-                    <button variant="contained" className="btn-home">Estoque</button>
-                    <button variant="contained" className="btn-home">Produtos</button>
+                    <button variant="contained" className="btn-home" onClick={handleClickPaginaEstoque}>Estoque</button>
+                    <button variant="contained" className="btn-home" onClick={handleClickProdutos}>Produtos</button>
                     <button variant="contained" className="btn-home" onClick={handleFinanceiroClick}>Financeiro</button>
                 </Stack>
             </Box>

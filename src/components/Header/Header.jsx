@@ -72,6 +72,16 @@ function Header() {
         navigate('/Sobre')
     }
 
+    const handleClickPaginaEstoque = (e) => {
+        e.preventDefault();
+        navigate('/Estoque')
+    }
+
+    const handleClickProdutos = (e) => {
+        e.preventDefault();
+        navigate('/Produtos')
+    }
+    
     return (
         <div className='container-header'>
             <LogoProjeto />
@@ -138,12 +148,12 @@ function Header() {
                             }}
                         >
                             <MenuItem
-                            // onClick={() => handleCloseEstoque('/estoque')}
+                            onClick={handleClickPaginaEstoque}
                             >
                                 Estoque
                             </MenuItem>
                             <MenuItem
-                            // onClick={() => handleCloseEstoque('/produtos')}
+                            onClick={handleClickProdutos}
                             >
                                 Produtos
                             </MenuItem>
