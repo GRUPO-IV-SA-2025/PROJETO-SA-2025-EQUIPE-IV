@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Button, Typography, Paper, TextField } from "@mui/material";
+import { Box, Grid, Stack, Typography, Paper } from "@mui/material";
 import Header from '../../components/Header/Header';
 import './Dashboard.css';
 import { LineChart } from '@mui/x-charts/LineChart';
@@ -100,27 +100,11 @@ function Dashboard() {
                                         <ChartsXAxis />
                                         <ChartsYAxis />
                                     </ChartContainer>
-
-                                    {/* <PieChart
-                                        series={[
-                                            {
-                                                data: [
-                                                    { id: 0, value: 10, label: 'series A' },
-                                                    { id: 1, value: 15, label: 'series B' },
-                                                    { id: 2, value: 20, label: 'series C' },
-                                                ],
-                                            },
-                                        ]}
-                                        height={300}
-                                        width={500}
-                                    /> */}
                                 </Box>
                             </Paper>
                         </Grid>
                     </Grid>
-
                 </Box>
-
                 <Stack direction="row" spacing={30} justifyContent="center">
                     <button variant="contained" className="btn-home" onClick={handleClickPaginaEstoque}>Estoque</button>
                     <button variant="contained" className="btn-home" onClick={handleClickProdutos}>Produtos</button>

@@ -61,7 +61,6 @@ function Estoque() {
                         + Incluir Lançamento
                     </Button>
                 </Box>
-
                 <Box sx={{ marginLeft: '35px', marginBottom: '20px' }}>
                     <FormControl sx={{ width: '30%' }} size='small'>
                         <InputLabel id="select-label" variant="standard">Seleção de Produtos</InputLabel>
@@ -79,7 +78,6 @@ function Estoque() {
                         </NativeSelect>
                     </FormControl>
                 </Box>
-
                 {/* Tabela visual */}
                 <Box sx={{ width: '75%', paddingLeft: '10px' }}>
                     <Box sx={{
@@ -99,7 +97,6 @@ function Estoque() {
                         <Typography>Preço de custo</Typography>
                         <Box /> {/* Ícone */}
                     </Box>
-
                     {produtos.map((produto, index) => (
                         <Box key={index} sx={{
                             display: 'grid',
@@ -123,7 +120,6 @@ function Estoque() {
                         </Box>
                     ))}
                 </Box>
-
                 {/* Card lateral com resumo */}
                 <Card sx={{
                     position: 'absolute',
@@ -153,20 +149,14 @@ function Estoque() {
                     <Typography sx={{ color: '#0077cc', fontWeight: 'bold' }}>Valor saídas: 0.000,00</Typography>
                 </Card>
             </Box>
-
-
             {/* Modal Sobreposto */}
             {isAddingProduto && (
-
                 <Box sx={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1300, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-
-
                     <Card sx={{ width: 400, padding: 2 }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>
                                 Incluir Lançamento no Estoque
                             </Typography>
-
                             <TextField
                                 fullWidth
                                 label="Tipo"
@@ -175,7 +165,6 @@ function Estoque() {
                                 value={tipo}
                                 onChange={(e) => setTipo(e.target.value)}
                             />
-
                             <TextField
                                 fullWidth
                                 label="Código"
@@ -185,8 +174,6 @@ function Estoque() {
                                 value={quantidade}
                                 onChange={(e) => setQuantidade(e.target.value)}
                             />
-
-
                             <TextField
                                 fullWidth
                                 label="Preço de Compra"
@@ -195,7 +182,6 @@ function Estoque() {
                                 value={precoCompra}
                                 onChange={(e) => setPrecoCompra(e.target.value)}
                             />
-
                             <TextField
                                 fullWidth
                                 label="Preço de Custo"
@@ -204,14 +190,12 @@ function Estoque() {
                                 value={precoCusto}
                                 onChange={(e) => setPrecoCusto(e.target.value)}
                             />
-
                         </CardContent>
                         <CardActions sx={{ justifyContent: 'flex-end' }}>
                             <Button variant="outlined" onClick={cancelarInclusao}>Cancelar</Button>
                             <Button variant="outlined" onClick={incluirProduto}>Incluir</Button>
                         </CardActions>
                     </Card>
-
                 </Box>
             )}
         </Box>
