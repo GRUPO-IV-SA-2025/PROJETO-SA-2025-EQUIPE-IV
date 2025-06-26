@@ -79,7 +79,7 @@ function Perfil() {
     if (error) return <div>Erro: {error}</div>;
 
     return (
-        <Box sx={{ width: '100vw', height: '100vh', backgroundColor: '#F0FAFF', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
+        <Box sx={{ width: '100%', height: '100%', backgroundColor: '#F0FAFF', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
             <Header />
 
             <Box sx={{ width: '28%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 3 }}>
@@ -279,7 +279,7 @@ function Perfil() {
                 </Box>
 
                 {/* Botões de Ação */}
-                <Box sx={{ display: 'flex', gap: 2, marginTop: 4 }}>
+                <Box sx={{ display: 'flex', gap: 2, marginTop: 5, marginBottom: 5 }}>
                     {!emEdicao ? (
                         <Button
                             variant="contained"

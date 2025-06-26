@@ -1,203 +1,308 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-import { Box, Button, FormControl, Card, CardContent, TextField, InputLabel, CardActions, NativeSelect, Typography, IconButton } from "@mui/material";
+import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Stack, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Select, MenuItem, Card, CardContent, List, ListItem, ListItemText, Divider, FormControl } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import InputLabel from '@mui/material/InputLabel';
+import api from "../../services/api";
+// import Paper from '@mui/material/Paper';
+
+
 
 function Estoque() {
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [lancamentosFiltrados, setLancamentosFiltrados] = useState([]);
     const [produtos, setProdutos] = useState([]);
-    const [isAddingProduto, setIsAddingProduto] = useState(false);
-    const [tipo, setTipo] = useState("");
-    const [quantidade, setQuantidade] = useState("");
-    const [precoCompra, setPrecoCompra] = useState("");
-    const [precoCusto, setPrecoCusto] = useState("");
-    const [produtoSelecionado, setProdutoSelecionado] = useState("");
+    const [produtoSelecionado, setProdutoSelecionado] = useState('');
+    const [lancamentos, setLancamentos] = useState([])
+    const [novoLancamento, setNovoLancamento] = useState({
+        tipo: '',
+        quantidade: 0,
+        preco_compra: 0,
+        produtoId: '',
+    })
 
-    function adicionarProduto() {
-        setIsAddingProduto(true);
-    }
+    const [opcoesTipo] = useState([
+        { valor: 'ENTRADA', label: 'Entrada' },
+        { valor: 'SAIDA', label: 'Saída' }
+    ]);
 
-    function cancelarInclusao() {
-        setIsAddingProduto(false);
-        setTipo("");
-        setQuantidade("");
-        setPrecoCompra(""),
-            setPrecoCusto(""),
-            setProdutoSelecionado("")
-    }
+    useEffect(() => {
+        api.get('/produtos')
+            .then(response => {
+                setProdutos(response.data);
+            })
+            .catch(error => {
+                console.error("Erro ao buscar produtos:", error);
+            });
+    }, []);
 
+    useEffect(() => {
+        api.get('/estoque')
+            .then(response => {
+                setLancamentos(response.data);
+                setLancamentosFiltrados(response.data)
+            })
+            .catch(error => {
+                console.error("Erro ao buscar lançamentos:", error);
+            });
+    }, []);
 
-    function incluirProduto() {
-        const novoProduto = {
-            tipo,
-            quantidade: Number(quantidade),
-            precoCompra: Number(precoCompra),
-            precoCusto: Number(precoCusto),
-            data: "00/00/00",
-            entrada: 0,
-            precoVenda: 0,
-            // precoCompra: 0,
+    const handleSelecionarProduto = async (event) => {
+        const produtoId = event.target.value;
+        setProdutoSelecionado(produtoId);
+
+        try {
+            if (produtoId === '') {
+                // Buscar todos os lançamentos
+                const response = await api.get("/estoque");
+                setLancamentos(response.data);
+                setLancamentosFiltrados(response.data)
+            } else {
+                // Buscar lançamentos filtrando pelo produto
+                const response = await api.get(`/estoque?produtoId=${produtoId}`);
+                setLancamentosFiltrados(response.data);
+            }
+        } catch (error) {
+            console.error("Erro ao buscar lançamentos:", error);
         }
+    };
 
-        setProdutos((prev) => [...prev, novoProduto]);
 
-        cancelarInclusao();
+    const calcularTotais = () => {
+        let entradas = 0;
+        let saidas = 0;
+        let valorEntradas = 0;
+        let valorSaidas = 0;
+
+        lancamentosFiltrados.forEach(lancamento => {
+            if (lancamento.tipo === 'ENTRADA') {
+                entradas += parseInt(lancamento.quantidade);
+                valorEntradas += parseFloat(lancamento.preco_compra) * parseInt(lancamento.quantidade);
+            } else {
+                saidas += parseInt(lancamento.quantidade); // Remova o sinal negativo aqui
+                valorSaidas += parseFloat(lancamento.preco_compra) * parseInt(lancamento.quantidade); // Remova o sinal negativo aqui
+            }
+        });
+
+        return {
+            totalEstoque: entradas - saidas,
+            entradas,
+            saidas,
+            valorEntradas,
+            valorSaidas
+        };
+    };
+
+    const totais = calcularTotais();
+
+    const abrirDialog = () => {
+        setNovoLancamento({ descricao: '', codigo: '', categoria: '' });
+
+        // setProdutoEditar(null)
+        setIsDialogOpen(true);
     }
 
-    const removerProduto = (index) => {
-        setProdutos((prev) => prev.filter((_, i) => i !== index));
+    const fecharDialog = () => {
+        setIsDialogOpen(false);
+        // setNovoProduto({ descricao: '', codigo: '', categoria: '' });
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNovoLancamento((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const cadastrarLancamento = async () => {
+        try {
+             await api.post('/estoque', {
+                tipo: novoLancamento.tipo,
+                quantidade: novoLancamento.quantidade,
+                preco_compra: novoLancamento.preco_compra,
+                produtos_id: novoLancamento.produtoId
+            });
+
+            const response = await api.get('/estoque')
+            setLancamentos(response.data);
+
+            if (produtoSelecionado) {
+                const filtrados = response.data.filter(item => item.produtos_id == produtoSelecionado);
+            setLancamentosFiltrados(filtrados);
+            } else {
+                setLancamentosFiltrados(response.data);
+            }
+            
+            fecharDialog();
+        } catch (error) {
+            console.error("Erro ao cadastrar lançamento:", error);
+        }
     };
 
     return (
-
-        <Box sx={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#F0FAFF' }}>
+        <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Header />
-            <Box sx={{ height: "100%", width: '100%', marginTop: "85px" }}>
-                <Box sx={{ marginTop: "35px", marginLeft: "35px", marginRight: "35px", display: 'flex', justifyContent: 'space-between' }}>
+
+            <Box sx={{ backgroundColor: '#e6f3fa', flex: 1, marginTop: "85px", padding: '2rem' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>
                         Estoque
                     </Typography>
-                    <Button variant='contained' size='large' sx={{ padding: '8px', height: '40px', borderRadius: '10px' }} onClick={adicionarProduto}>
-                        + Incluir Lançamento
+                    <Button variant='contained' size='large' sx={{ padding: '8px', height: '40px', borderRadius: '10px', fontWeight: 'Bold' }} onClick={abrirDialog} >
+                        + Incluir lançamento
                     </Button>
                 </Box>
-                <Box sx={{ marginLeft: '35px', marginBottom: '20px' }}>
-                    <FormControl sx={{ width: '30%' }} size='small'>
-                        <InputLabel id="select-label" variant="standard">Seleção de Produtos</InputLabel>
-                        <NativeSelect
-                            id="select-produtos"
-                            value={produtoSelecionado}
-                            onChange={(e) => setProdutoSelecionado(e.target.value)}
-                        >
-                            <option value="">Selecione</option>
-                            {produtos.map((produto, index) => (
-                                <option key={index} value={index}>
-                                    {produto.tipo}
-                                </option>
-                            ))}
-                        </NativeSelect>
-                    </FormControl>
-                </Box>
-                {/* Tabela visual */}
-                <Box sx={{ width: '75%', paddingLeft: '10px' }}>
-                    <Box sx={{
-                        display: 'grid',
-                        gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr auto',
-                        backgroundColor: '#e0f4ff',
-                        borderRadius: '8px',
-                        padding: '10px',
-                        fontWeight: 'bold',
-                        color: '#004468'
-                    }}>
-                        <Typography>Produto</Typography>
-                        <Typography>Data</Typography>
-                        <Typography>Entrada</Typography>
-                        <Typography>Preço de venda</Typography>
-                        <Typography>Preço de compra</Typography>
-                        <Typography>Preço de custo</Typography>
-                        <Box /> {/* Ícone */}
+
+                <FormControl variant="standard" sx={{ m: 1, width: 180 }}>
+                    <InputLabel>
+                        Selecionar Produto
+                    </InputLabel>
+                    <Select
+                        value={produtoSelecionado}
+                        onChange={handleSelecionarProduto}
+                        label="Selecionar Produto"
+                    >
+                        <MenuItem value="">
+                            <em>Todos os produtos</em>
+                        </MenuItem>
+                        {produtos.map((prod) => (
+                            <MenuItem key={prod.id} value={prod.id}>
+                                {prod.descricao}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+
+                <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
+                    <Box sx={{ flex: { xs: 1, md: 7 } }}>
+                        <TableContainer component={Paper} >
+                            <Table>
+                                <TableHead>
+                                    <TableRow sx={{ backgroundColor: "#fffff" }}>
+                                        <TableCell><strong>Produto</strong></TableCell>
+                                        <TableCell><strong>Tipo</strong></TableCell>
+                                        <TableCell><strong>Quantidade</strong></TableCell>
+                                        <TableCell><strong>Valor</strong></TableCell>
+                                        <TableCell><strong>Data</strong></TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {lancamentosFiltrados.map((lancamento) => (
+                                        <TableRow key={lancamento.id}>
+                                            <TableCell>{lancamento.produto_descricao}</TableCell>
+                                            <TableCell>{lancamento.tipo}</TableCell>
+                                            <TableCell>{lancamento.quantidade}</TableCell>
+                                            <TableCell>{lancamento.preco_compra}</TableCell>
+                                            <TableCell>{lancamento.data_lancamento}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </Box>
-                    {produtos.map((produto, index) => (
-                        <Box key={index} sx={{
-                            display: 'grid',
-                            gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr auto',
-                            backgroundColor: 'white',
-                            borderRadius: '8px',
-                            padding: '10px',
-                            marginY: '8px',
-                            alignItems: 'center'
-                        }}>
-                            <Typography>{produto.tipo}</Typography>
-                            <Typography>{produto.data}</Typography>
-                            <Typography>{produto.entrada}</Typography>
-                            <Typography>{produto.saida}</Typography>
-                            <Typography>R$ {produto.precoVenda.toFixed(2)}</Typography>
-                            <Typography>R$ {produto.precoCompra.toFixed(2)}</Typography>
-                            <Typography>R$ {produto.precoCusto.toFixed(2)}</Typography>
-                            <IconButton onClick={() => removerProduto(index)}>
-                                <DeleteIcon sx={{ color: 'red' }} />
-                            </IconButton>
-                        </Box>
-                    ))}
+
+                    <Box sx={{ flex: { xs: 1, md: 3 } }}>
+                        <Card variant="outlined" sx={{ borderRadius: 7 }}>
+                            <CardContent>
+                                <Box sx={{ textAlign: 'center', mb: 2 }}>
+                                    <Typography variant="h5"
+                                        sx={{
+                                            backgroundColor: "#0081C4",
+                                            color: "#fff",
+                                            p: 1,
+                                            borderRadius: 2,
+                                            display: 'inline-block'
+                                        }}>
+                                        {produtoSelecionado ? produtos.find(p => p.id == produtoSelecionado)?.descricao || 'Produto' : 'Resumo Geral'}
+                                    </Typography>
+                                </Box>
+
+                                <List>
+                                    <ListItem>
+                                        <ListItemText primary="Total em estoque" />
+                                        <Typography>{totais.totalEstoque}</Typography>
+                                    </ListItem>
+
+                                    <Divider />
+
+                                    <ListItem>
+                                        <ListItemText primary="Entradas" />
+                                        <Typography>{totais.entradas}</Typography>
+                                    </ListItem>
+
+                                    <ListItem>
+                                        <ListItemText primary="Saídas" />
+                                        <Typography>{totais.saidas}</Typography>
+                                    </ListItem>
+
+                                    <Divider />
+
+                                    <ListItem>
+                                        <ListItemText primary="Valor entradas" />
+                                        <Typography>{totais.valorEntradas.toFixed(2)}</Typography>
+                                    </ListItem>
+
+                                    <ListItem>
+                                        <ListItemText primary="Valor saídas" />
+                                        <Typography>{totais.valorSaidas.toFixed(2)}</Typography>
+                                    </ListItem>
+                                </List>
+                            </CardContent>
+                        </Card>
+                    </Box>
                 </Box>
-                {/* Card lateral com resumo */}
-                <Card sx={{
-                    position: 'absolute',
-                    right: '35px',
-                    top: '180px',
-                    width: '250px',
-                    borderRadius: '10px',
-                    boxShadow: '0px 2px 10px rgba(0,0,0,0.1)',
-                    padding: '15px',
-                    backgroundColor: '#fff'
-                }}>
-                    <Typography variant="h6" sx={{
-                        textAlign: 'center',
-                        backgroundColor: '#004468',
-                        color: 'white',
-                        padding: '10px',
-                        borderRadius: '10px'
-                    }}>
-                        {produtoSelecionado
-                            ? produtos.find((p, i) => i === parseInt(produtoSelecionado))?.tipo || 'Nome produto'
-                            : 'Nome produto'}
-                    </Typography>
-                    <Typography mt={2}>Total em estoque: 00,00</Typography>
-                    <Typography>Entradas: 00,00</Typography>
-                    <Typography>Saídas: 00,00</Typography>
-                    <Typography sx={{ color: '#0077cc', fontWeight: 'bold' }}>Valor entradas: 0.000,00</Typography>
-                    <Typography sx={{ color: '#0077cc', fontWeight: 'bold' }}>Valor saídas: 0.000,00</Typography>
-                </Card>
+
             </Box>
-            {/* Modal Sobreposto */}
-            {isAddingProduto && (
-                <Box sx={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1300, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Card sx={{ width: 400, padding: 2 }}>
-                        <CardContent>
-                            <Typography variant="h6" gutterBottom>
-                                Incluir Lançamento no Estoque
-                            </Typography>
+
+            <Dialog open={isDialogOpen} onClose={fecharDialog} >
+                <DialogTitle sx={{ fontWeight: 'bold', color: '#004468', fontSize: '30px' }}>Novo Lançamento</DialogTitle>
+                <DialogContent>
+                    <Stack spacing={2} sx={{ mt: 1 }}>
+
+                        <Box sx={{ display: 'flex', gap: 2 }}>
+
                             <TextField
+                                select
+                                label="Produto"
+                                name="produtoId"
+                                value={novoLancamento.produtoId}
+                                onChange={handleChange}
                                 fullWidth
+                            >
+                                {produtos.map((prod) => (
+                                    <MenuItem key={prod.id} value={prod.id}>
+                                        {prod.descricao}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+
+                            <TextField
+                                select
                                 label="Tipo"
-                                variant="outlined"
-                                margin="normal"
-                                value={tipo}
-                                onChange={(e) => setTipo(e.target.value)}
-                            />
-                            <TextField
+                                name="tipo"
+                                value={novoLancamento.tipo}
+                                onChange={handleChange}
                                 fullWidth
-                                label="Código"
-                                variant="outlined"
-                                type="number"
-                                margin="normal"
-                                value={quantidade}
-                                onChange={(e) => setQuantidade(e.target.value)}
+                            >
+                                {opcoesTipo.map((opcao) => (
+                                    <MenuItem key={opcao.valor} value={opcao.valor}>
+                                        {opcao.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+
+                            <TextField label="Quantidade" name="quantidade" value={novoLancamento.quantidade} onChange={handleChange} fullWidth />
+
+                            <TextField label="Valor" name="preco_compra" type="number" value={novoLancamento.preco_compra} onChange={handleChange} fullWidth
                             />
-                            <TextField
-                                fullWidth
-                                label="Preço de Compra"
-                                variant="outlined"
-                                margin="normal"
-                                value={precoCompra}
-                                onChange={(e) => setPrecoCompra(e.target.value)}
-                            />
-                            <TextField
-                                fullWidth
-                                label="Preço de Custo"
-                                variant="outlined"
-                                margin="normal"
-                                value={precoCusto}
-                                onChange={(e) => setPrecoCusto(e.target.value)}
-                            />
-                        </CardContent>
-                        <CardActions sx={{ justifyContent: 'flex-end' }}>
-                            <Button variant="outlined" onClick={cancelarInclusao}>Cancelar</Button>
-                            <Button variant="outlined" onClick={incluirProduto}>Incluir</Button>
-                        </CardActions>
-                    </Card>
-                </Box>
-            )}
+
+                        </Box>
+                    </Stack>
+                </DialogContent>
+                <DialogActions sx={{ px: 4, pb: 2 }}>
+                    <Button onClick={fecharDialog} variant="outlined" color="primary">Cancelar</Button>
+                    <Button onClick={cadastrarLancamento} variant="contained" sx={{ backgroundColor: '#004468' }}>Cadastrar</Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     )
 }
