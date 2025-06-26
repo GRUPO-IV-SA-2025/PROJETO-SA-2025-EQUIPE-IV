@@ -1,6 +1,6 @@
 
 # ESTOQUE +
-Projeto Full-stack de Gerenciamento e Controle de Estoque.
+Projeto Full-Stack de Gerenciamento e Controle de Estoque.
 
 ## Front-end desenvolvido com React JS + Vite
 
