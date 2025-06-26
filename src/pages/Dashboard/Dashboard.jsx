@@ -16,11 +16,6 @@ function Dashboard() {
     const navigate = useNavigate();
     const { LogOut } = useAuth();''
 
-    const handleFinanceiroClick = (e) => {
-        e.preventDefault();
-        navigate('/Financeiro')
-    }
-
     useEffect(() => {
         api.get('/private').then(response => {
             console.log("Sessão ativa:", response.data);
@@ -28,6 +23,17 @@ function Dashboard() {
             LogOut();
         });
     }, []);
+
+    const handleFinanceiroClick = (e) => {
+        e.preventDefault();
+        navigate('/Financeiro')
+    }
+
+    const handleCategoriaClick = (e) => {
+        e.preventDefault();
+        navigate('/Categoria')
+    }
+
 
     const handleClickPaginaEstoque = (e) => {
         e.preventDefault();
@@ -105,10 +111,11 @@ function Dashboard() {
                         </Grid>
                     </Grid>
                 </Box>
-                <Stack direction="row" spacing={30} justifyContent="center">
+                <Stack direction="row" spacing={20} justifyContent="center">
                     <button variant="contained" className="btn-home" onClick={handleClickPaginaEstoque}>Estoque</button>
                     <button variant="contained" className="btn-home" onClick={handleClickProdutos}>Produtos</button>
                     <button variant="contained" className="btn-home" onClick={handleFinanceiroClick}>Financeiro</button>
+                    <button variant="contained" className="btn-home" onClick={handleCategoriaClick}>Categorias</button>
                 </Stack>
             </Box>
         </Box>

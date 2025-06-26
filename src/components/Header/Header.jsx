@@ -60,7 +60,6 @@ function Header() {
         setAnchorUsuario(null)
     }
 
-
     const handleFinanceiroClick = (e) => {
         e.preventDefault();
         navigate('/Financeiro')
@@ -89,6 +88,11 @@ function Header() {
     const handleClickProdutos = (e) => {
         e.preventDefault();
         navigate('/Produtos')
+    }
+
+       const handleCategoriaClick = (e) => {
+        e.preventDefault();
+        navigate('/Categoria')
     }
     
     return (
@@ -164,6 +168,11 @@ function Header() {
                             onClick={handleClickProdutos}
                             >
                                 Produtos
+                            </MenuItem>
+                            <MenuItem
+                            onClick={handleCategoriaClick}
+                            >
+                                Categorias
                             </MenuItem>
 
                         </Menu>
