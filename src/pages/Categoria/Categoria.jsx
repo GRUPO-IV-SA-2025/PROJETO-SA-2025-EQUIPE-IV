@@ -98,10 +98,10 @@ function Categoria() {
 
 
     return (
-        <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Header />
 
-            <Box sx={{ backgroundColor: '#e6f3fa', flex: 1, marginTop: "85px", padding: '2rem' }}>
+            <Box sx={{flexGrow: 1, overflowY: 'auto', backgroundColor: '#e6f3fa', padding: '2rem', marginTop: "85px"  }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                     <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>
                         Categorias

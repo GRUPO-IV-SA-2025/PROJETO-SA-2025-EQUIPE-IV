@@ -2,19 +2,131 @@ import { Box, Grid, Stack, Typography, Paper } from "@mui/material";
 import Header from '../../components/Header/Header';
 import './Dashboard.css';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { BarChart } from '@mui/x-charts/BarChart';
 import { ChartContainer } from '@mui/x-charts/ChartContainer';
 import { BarPlot } from '@mui/x-charts/BarChart';
 import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
 import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
 import { BarLabel } from '@mui/x-charts';
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/AuthContext";
 
 function Dashboard() {
     const navigate = useNavigate();
-    const { LogOut } = useAuth();''
+    const { LogOut } = useAuth(); ''
+
+    const [fluxoData, setFluxoData] = useState([]);
+    const [topProdutos, setTopProdutos] = useState([]);
+
+    useEffect(() => {
+        // Carrega dados inicialmente
+        carregarDados();
+
+        // Configura polling para atualizar a cada 30 segundos
+        const intervalId = setInterval(carregarDados, 30000);
+
+        // Limpa o intervalo quando o componente é desmontado
+        return () => clearInterval(intervalId);
+    }, []);
+
+    const carregarDados = async () => {
+        try {
+            const response = await api.get('/estoque');
+            const dados = response.data;
+
+            // Processa os dados
+            const fluxo = calcularFluxo(dados);
+            const produtos = processarProdutos(dados);
+
+            setFluxoData(fluxo);
+            setTopProdutos(produtos);
+
+        } catch (error) {
+            console.error("Erro ao carregar dados:", error);
+        }
+    };
+
+    const calcularFluxo = (dados) => {
+        const movimentacaoPorData = {};
+
+        // 1. Agrupa movimentações por data
+        dados.forEach(item => {
+            const data = formatarData(item.data_lancamento);
+            const valor = Number(item.preco_compra) * Number(item.quantidade);
+            const tipo = item.tipo.toLowerCase()
+            // .includes('saida') ? 'saida' : item.tipo.toLowerCase();
+
+            if (!movimentacaoPorData[data]) {
+                movimentacaoPorData[data] = 0;
+            }
+
+            if (tipo.includes('saida')) {
+                movimentacaoPorData[data] += valor; // entrada de dinheiro
+            } else {
+                movimentacaoPorData[data] -= valor; // saída de dinheiro
+            }
+
+            // Entradas são valores negativos (saída de caixa)
+            // Saídas são valores positivos (entrada de caixa)
+            // movimentacaoPorData[data] += tipo === 'entrada' ? -valor : valor;
+        });
+
+        // 2. Converte para array e ordena por data
+        const dadosOrdenados = Object.entries(movimentacaoPorData)
+            .map(([data, saldo]) => ({ data, saldo }))
+            .sort((a, b) => new Date(a.data.split('/').reverse().join('/')) - new Date(b.data.split('/').reverse().join('/')));
+
+        // 3. Calcula saldo acumulado
+        let saldoAcumulado = 0;
+        return dadosOrdenados.map(item => {
+            saldoAcumulado += item.saldo;
+            return {
+                data: item.data,
+                saldo: saldoAcumulado
+            };
+        });
+    };
+
+
+    const processarProdutos = (dados) => {
+        // Calcula saldo por produto
+        const saldos = {};
+
+        dados.forEach(item => {
+            const nome = item.produto_descricao;
+            const qtd = Number(item.quantidade) || 0;
+            const tipo = item.tipo.toLowerCase() === 'entrada' ? 'entrada' : 'saida';
+
+            saldos[nome] = (saldos[nome] || 0) + (tipo === 'entrada' ? qtd : -qtd);
+        });
+
+        // Ordena e pega top 3
+        return Object.entries(saldos)
+            .map(([nome, qtd]) => ({ nome, qtd }))
+            .sort((a, b) => b.qtd - a.qtd)
+            .slice(0, 3);
+    };
+
+    const formatarDataHora = (dataString) => {
+        const data = new Date(dataString);
+        return `${data.getDate()}/${data.getMonth() + 1} ${data.getHours()}:${data.getMinutes()}`;
+    };
+
+    const formatarData = (dataISO) => {
+        if (!dataISO) return '';
+        const data = new Date(dataISO);
+        return data.toLocaleDateString('pt-BR');
+    };
+
+    const formatarMoeda = (valor) => {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(valor);
+    };
+
 
     useEffect(() => {
         api.get('/private').then(response => {
@@ -46,11 +158,12 @@ function Dashboard() {
     }
 
     return (
-        <Box sx={{ width: '100vw', height: '100vh', gridTemplateColumns: '1fr 1fr', display: 'flex', backgroundColor: '#F0FAFF' }}>
+        <Box sx={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column' }}>
 
             <Header />
 
-            <Box sx={{ width: '100%', marginTop: "85px" }}>
+            <Box sx={{ width: '100%', marginTop: "85px", flexGrow: 1,
+                overflowY: 'auto', }}>
                 <Box sx={{ marginTop: "35px", marginLeft: "35px" }}>
                     <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>
                         Dashboard
@@ -68,14 +181,27 @@ function Dashboard() {
                                 <Box sx={{ mt: 2, bgcolor: 'grey.100' }}>
 
                                     <LineChart
-                                        xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
                                         series={[
                                             {
-                                                data: [2, 5.5, 2, 8.5, 1.5, 5],
-                                            },
+                                                data: fluxoData.map(item => item.saldo),
+                                                label: 'Saldo Diário',
+                                                color: '#0081C4',
+                                                showMark: true,
+                                                valueFormatter: (value) => formatarMoeda(value)
+                                            }
                                         ]}
                                         height={300}
                                         width={500}
+                                        xAxis={[{
+                                            scaleType: 'point',
+                                            data: fluxoData.map(item => item.data),
+                                            label: 'Data'
+                                        }]}
+                                        yAxis={[{
+                                            label: 'Valor (R$)',
+                                            valueFormatter: (value) => formatarMoeda(value)
+                                        }]}
+
                                     />
                                 </Box>
                             </Paper>
@@ -90,22 +216,22 @@ function Dashboard() {
                                 </Typography>
                                 <Box sx={{ mt: 2, bgcolor: 'grey.100' }}>
 
-                                    <ChartContainer
-                                        xAxis={[{ scaleType: 'band', data: ['A', 'B', 'C'] }]}
+                                    <BarChart
                                         series={[
                                             {
-                                                type: 'bar',
-                                                id: 'base',
-                                                data: [5, 17, 11],
-                                            },
+                                                data: topProdutos.map(item => item.qtd),
+                                                label: 'Quantidade',
+                                                color: '#2196F3'
+                                            }
                                         ]}
                                         height={300}
                                         width={500}
-                                    >
-                                        <BarPlot barLabel="value" slots={{ barLabel: BarLabel }} />
-                                        <ChartsXAxis />
-                                        <ChartsYAxis />
-                                    </ChartContainer>
+
+                                        xAxis={[{
+                                            scaleType: 'band',
+                                            data: topProdutos.map(item => item.nome)
+                                        }]}
+                                    />
                                 </Box>
                             </Paper>
                         </Grid>

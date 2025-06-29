@@ -82,7 +82,7 @@ function Perfil() {
         <Box sx={{ width: '100%', height: '100%', backgroundColor: '#F0FAFF', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
             <Header />
 
-            <Box sx={{ width: '28%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 3 }}>
+            <Box sx={{ width: '28%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 3, overflowY: 'auto'}}>
                 <Avatar
                     sx={{ height: '350px', width: '350px', padding: '10px', fontSize: '120px', backgroundColor: '#003049' }}>
                     {(perfil?.nome ? perfil.nome[0].toUpperCase() : 'U')}
@@ -320,7 +320,7 @@ function Perfil() {
                     </Button>
                 </Box>
             </Box>
-            {/* Diálogo de Confirmação para Exclusão */}
+
             <Dialog
                 open={openDeleteDialog}
                 onClose={() => setOpenDeleteDialog(false)}

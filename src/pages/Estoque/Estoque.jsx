@@ -5,8 +5,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InputLabel from '@mui/material/InputLabel';
 import api from "../../services/api";
 // import Paper from '@mui/material/Paper';
-
-
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 function Estoque() {
 
@@ -20,6 +20,7 @@ function Estoque() {
         quantidade: 0,
         preco_compra: 0,
         produtoId: '',
+        data_lancamento: '',
     })
 
     const [opcoesTipo] = useState([
@@ -68,30 +69,47 @@ function Estoque() {
         }
     };
 
+    const formatarData = (dataISO) => {
+        if (!dataISO) return '';
+        return format(new Date(dataISO), "dd/MM/yyyy HH:mm", { locale: ptBR });
+    };
+
+        const formatarMoeda = (valor) => {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(valor || 0);
+    };
 
     const calcularTotais = () => {
-        let entradas = 0;
-        let saidas = 0;
-        let valorEntradas = 0;
-        let valorSaidas = 0;
+       let entradas = 0;
+    let saidas = 0;
+    let valorEntradas = 0;
+    let valorSaidas = 0;
 
-        lancamentosFiltrados.forEach(lancamento => {
-            if (lancamento.tipo === 'ENTRADA') {
-                entradas += parseInt(lancamento.quantidade);
-                valorEntradas += parseFloat(lancamento.preco_compra) * parseInt(lancamento.quantidade);
-            } else {
-                saidas += parseInt(lancamento.quantidade); // Remova o sinal negativo aqui
-                valorSaidas += parseFloat(lancamento.preco_compra) * parseInt(lancamento.quantidade); // Remova o sinal negativo aqui
-            }
-        });
+    lancamentosFiltrados.forEach(lancamento => {
+        const quantidade = Number(lancamento.quantidade) || 0;
+        const valor = Number(lancamento.preco_compra) || 0;
+        // Corrige o tipo "salda" para "saida"
+        const tipo = lancamento.tipo.toLowerCase() === 'salda' ? 'SAIDA' : lancamento.tipo.toUpperCase();
 
-        return {
-            totalEstoque: entradas - saidas,
-            entradas,
-            saidas,
-            valorEntradas,
-            valorSaidas
-        };
+        if (tipo === 'ENTRADA') {
+            entradas += quantidade;
+            valorEntradas += quantidade * valor;
+        } else if (tipo === 'SAIDA') {
+            saidas += quantidade;
+            valorSaidas += quantidade * valor;
+        }
+    });
+
+    return {
+        totalEstoque: entradas - saidas,
+        entradas,
+        saidas,
+        valorEntradas,
+        valorSaidas,
+        valorSaldo: valorSaidas - valorEntradas // CORRETO: valor de saídas - valor de entradas
+    };
     };
 
     const totais = calcularTotais();
@@ -115,7 +133,7 @@ function Estoque() {
 
     const cadastrarLancamento = async () => {
         try {
-             await api.post('/estoque', {
+            await api.post('/estoque', {
                 tipo: novoLancamento.tipo,
                 quantidade: novoLancamento.quantidade,
                 preco_compra: novoLancamento.preco_compra,
@@ -127,11 +145,11 @@ function Estoque() {
 
             if (produtoSelecionado) {
                 const filtrados = response.data.filter(item => item.produtos_id == produtoSelecionado);
-            setLancamentosFiltrados(filtrados);
+                setLancamentosFiltrados(filtrados);
             } else {
                 setLancamentosFiltrados(response.data);
             }
-            
+
             fecharDialog();
         } catch (error) {
             console.error("Erro ao cadastrar lançamento:", error);
@@ -139,10 +157,10 @@ function Estoque() {
     };
 
     return (
-        <Box sx={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Header />
 
-            <Box sx={{ backgroundColor: '#e6f3fa', flex: 1, marginTop: "85px", padding: '2rem' }}>
+            <Box sx={{ backgroundColor: '#e6f3fa', marginTop: "85px", padding: '2rem', flexGrow: 1, overflowY: 'auto' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography variant="h4" gutterBottom sx={{ color: "#004468", fontWeight: "bold", fontSize: "40px" }}>
                         Estoque
@@ -182,7 +200,7 @@ function Estoque() {
                                         <TableCell><strong>Tipo</strong></TableCell>
                                         <TableCell><strong>Quantidade</strong></TableCell>
                                         <TableCell><strong>Valor</strong></TableCell>
-                                        <TableCell><strong>Data</strong></TableCell>
+                                        <TableCell><strong>Data/Hora</strong></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -191,8 +209,8 @@ function Estoque() {
                                             <TableCell>{lancamento.produto_descricao}</TableCell>
                                             <TableCell>{lancamento.tipo}</TableCell>
                                             <TableCell>{lancamento.quantidade}</TableCell>
-                                            <TableCell>{lancamento.preco_compra}</TableCell>
-                                            <TableCell>{lancamento.data_lancamento}</TableCell>
+                                            <TableCell>{formatarMoeda(lancamento.preco_compra)}</TableCell>
+                                            <TableCell>{formatarData(lancamento.data_lancamento)}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -238,13 +256,21 @@ function Estoque() {
 
                                     <ListItem>
                                         <ListItemText primary="Valor entradas" />
-                                        <Typography>{totais.valorEntradas.toFixed(2)}</Typography>
+                                        <Typography>{formatarMoeda(totais.valorEntradas)}</Typography>
                                     </ListItem>
 
                                     <ListItem>
                                         <ListItemText primary="Valor saídas" />
-                                        <Typography>{totais.valorSaidas.toFixed(2)}</Typography>
+                                        <Typography>{formatarMoeda(totais.valorSaidas)}</Typography>
                                     </ListItem>
+
+                                    <Divider />
+
+                                    <ListItem>
+                                        <ListItemText primary="Saldo atual" />
+                                        <Typography>{formatarMoeda(totais.valorSaldo)}</Typography>
+                                    </ListItem>
+
                                 </List>
                             </CardContent>
                         </Card>

@@ -7,11 +7,10 @@ import img from '/src/images/imgTESTE.png'
 function Sobre() {
 
     return (
-        <Box sx={{ width: '100%', height: '100%', backgroundColor: '#F0FAFF', gridTemplateColumns: '1fr 1fr', display: 'flex' }}>
+        <Box sx={{height: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Header />
 
-            <Box sx={{height: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'row', paddingTop: 7 }}>
-
+            <Box sx={{ flexGrow: 1, overflowY: 'auto', backgroundColor: '#F0FAFF', display: 'flex', flexDirection: 'row', padding: 4}}>
 
                 <Box sx={{ width: '35%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', gap: 3 }}>
 
