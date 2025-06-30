@@ -75,6 +75,19 @@ function Perfil() {
         }
     }
 
+    const estiloInput = {
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': { borderColor: '#003049' },
+            '&:hover fieldset': { borderColor: '#003049' },
+            '&.Mui-focused fieldset': { borderColor: '#003049' },
+        },
+        '& .MuiInputBase-input': {
+            fontSize: '1.1rem',
+            fontWeight: 'bold',
+            padding: '14px',
+        },
+    };
+
     if (carregando) return <div>Carregando...</div>;
     if (error) return <div>Erro: {error}</div>;
 
@@ -276,6 +289,118 @@ function Perfil() {
                         }}
                         variant="outlined"
                     />
+
+                    {/* Campo: CEP */}
+                    <Typography variant="h5" sx={{ paddingTop: 7 }}>CEP</Typography>
+                    <TextField
+                    value={dadosEditados?.cep || ""}
+                    onchange={async (e) => {
+                        const cep = e.target.value.replace(/\D/g, '');
+                        setDadosEditados({ ...dadosEditados, cep });
+
+                        if(cep.length === 8 ) {
+                            try{
+                                const reponse = await fetch(`httpshttps://viacep.com.br/ws/${cep}/json/`);
+                                const data = await response.json();
+
+                                if (!data.erro) {
+                                    setDadosEditados(prev => ({
+                                        ...prev,
+                                        logradouro: data.logradouro,
+                                        bairro: data.bairro,
+                                        cidade: data.localidade,
+                                        uf: data.uf
+                                    }));
+                                } else {
+                                    showAlert('CEP não encontrado', 'warning'); 
+                                }
+                            } catch (error) {
+                                console.error("Erro ao buscar o CEP:", error);
+                                showAlert('Erro ao buscar o CEP.', 'error');
+                            }
+                        }
+                    }}
+                    slotProps={{ input: { readOnly: !emEdicao } }}
+                    sx={{
+                        width: '750px',
+                        backgroundColor: 'white',
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: '#003049' },
+                            '&:hover fieldset': { borderColor: '#003049' },
+                            '&.Mui-focused fieldset': { borderColor: '#003049' },
+                        },
+                        '& .MuiInputBase-input': {
+                            fontSize: '1.1rem',
+                            fontWeight: 'bold',
+                            padding: '14px',
+                        },
+                    }}
+                    variant="outlined"
+                    />
+
+                    {/* Campo: Logradouro */}
+                    <Typography variant="h5" sx={{ paddingTop: 7 }}>Logradouro</Typography>
+                    <TextField
+                    value={dadosEditados?.logradouro || ""}
+                    onChange={(e) => setDadosEditados({ ...dadosEditados, logradouro: e.target.value })}
+                    slotProps={{ input: { readOnly: !emEdicao } }}
+                    sx={{ width: '750px', backgroundColor: 'white', ...estiloInput }}
+                    variant="outlined"
+                    />
+
+                    {/* Campo: Número */}
+                    <Typography variant="h5" sx={{ paddingTop: 7 }}>Número</Typography>
+                    <TextField
+                    value={dadosEditados?.numero || ""}
+                    onChange={(e) => {
+                        const apenasNumeros = e.target.value.replace(/\D/g, '');
+                        setDadosEditados({ ...dadosEditados, numero: apenasNumeros });
+                    }}
+                    slotProps={{ input: { readOnly: !emEdicao } }}
+                    sx={{ width: '750px', backgroundColor: 'white', ...estiloInput }}
+                    variant="outlined"
+                    />
+
+                    {/* Campo: Complemento */}
+                    <Typography variant="h5" sx={{ paddingTop: 7 }}>Complemento</Typography>
+                    <TextField
+                    value={dadosEditados?.complemento || ""}
+                    onChange={(e) => setDadosEditados({ ...dadosEditados, complemento: e.target.value })}
+                    slotProps={{ input: { readOnly: !emEdicao } }}
+                    sx={{ width: '750px', backgroundColor: 'white', ...estiloInput }}
+                    variant="outlined"
+                    />
+
+                    {/* Campo: Bairro */}
+                    <Typography variant="h5" sx={{ paddingTop: 7 }}>Bairro</Typography>
+                    <TextField
+                    value={dadosEditados?.bairro || ""}
+                    onChange={(e) => setDadosEditados({ ...dadosEditados, bairro: e.target.value })}
+                    slotProps={{ input: { readOnly: !emEdicao } }}
+                    sx={{ width: '750px', backgroundColor: 'white', ...estiloInput }}
+                    variant="outlined"
+                    />
+
+                    {/* Campo: Cidade */}
+                    <Typography   Typography variant="h5" sx={{ paddingTop: 7 }}>Cidade</Typography>
+                    <TextField
+                    value={dadosEditados?.cidade || ""}
+                    onChange={(e) => setDadosEditados({ ...dadosEditados, cidade: e.target.value })}
+                    slotProps={{ input: { readOnly: !emEdicao } }}
+                    sx={{ width: '750px', backgroundColor: 'white', ...estiloInput }}
+                    variant="outlined"
+                    />
+
+                    {/* Campo: UF */}
+                    <Typography variant="h5" sx={{ paddingTop: 7 }}>UF</Typography>
+                    <TextField
+                    value={dadosEditados?.uf || ""}
+                    onChange={(e) => setDadosEditados({ ...dadosEditados, uf: e.target.value })}
+                    slotProps={{ input: { readOnly: !emEdicao } }}
+                    sx={{ width: '750px', backgroundColor: 'white', ...estiloInput }}
+                    variant="outlined"
+                    />
+
                 </Box>
 
                 {/* Botões de Ação */}
